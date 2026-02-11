@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Data Analyst Project Case Study" />
+    <meta name="author" content="Hai-Dang Nguyen" />
+    <title>Sales Performance Dashboard - Hai-Dang Nguyen Portfolio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <style>
+        /* Custom styles for the case study page */
+        .case-study-hero {
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .case-study-section {
+            margin-bottom: 4rem;
+        }
+
+        .metric-card {
+            border-left: 4px solid #1e30f3;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            height: 100%;
+        }
+
+        .tech-badge {
+            font-size: 0.9rem;
+            padding: 0.5em 1em;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            background-color: white;
+            color: #212529;
+        }
+
+        .viz-placeholder {
+            background-color: #e9ecef;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+            <div class="container px-5">
+                <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">Hai-Dang
+                        Nguyen</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item"><a class="nav-link" href="../resume.html">About Me</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../book.html">Book Read</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Case Study Hero Header-->
+        <header class="case-study-hero">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="col-lg-10 col-xl-9">
+                        <div class="text-center">
+                            <div class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide">
+                                Dashboarding</div>
+                            <h1 class="display-4 fw-bolder mb-3">Sales Performance Dashboard</h1>
+                            <p class="lead fw-normal text-white-50 mb-0">Interactive Power BI dashboard tracking
+                                real-time sales KPIs across regions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container px-5">
+            <div class="row gx-5">
+                <!-- Left Column: Main Narrative -->
+                <div class="col-lg-8">
+
+                    <!-- 1. Executive Summary -->
+                    <div class="case-study-section">
+                        <h2 class="fw-bolder text-gradient d-inline-block mb-4">Executive Summary</h2>
+                        <p class="fs-5 mb-4">Briefly explain the "Why" and the "Result". Keep this section short for
+                            recruiters who only scan. Example: The company was facing a 15% churn rate. This project
+                            analyzed user behavior and identified key friction points, proposing solutions to reduce
+                            churn by 5%.</p>
+
+                        <!-- Key Metrics Grid -->
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <div class="metric-card">
+                                    <h3 class="fw-bold text-primary mb-1">Total Impact</h3>
+                                    <div class="small text-muted">Revenue/Time Saved</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="metric-card">
+                                    <h3 class="fw-bold text-primary mb-1">Accuracy</h3>
+                                    <div class="small text-muted">Model Performance</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Business Problem -->
+                    <div class="case-study-section">
+                        <h3 class="fw-bold mb-3">The Business Problem</h3>
+                        <p>Dive deeper into the context. What questions were you trying to answer? Who is the
+                            stakeholder? Why does this matter?</p>
+                        <ul>
+                            <li>Question 1: What segments of customers are most profitable?</li>
+                            <li>Question 2: How does seasonality affect sales?</li>
+                        </ul>
+                    </div>
+
+                    <!-- 3. Methodology & Approach -->
+                    <div class="case-study-section">
+                        <h3 class="fw-bold mb-3">My Approach</h3>
+                        <p>Describe your technical process here. Don't just list steps, explain your choices.</p>
+
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div>
+                                <strong>Data Collection & Cleaning:</strong> Used Python (Pandas) to handle missing
+                                values and merge 3 different datasets.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div>
+                                <strong>Exploratory Data Analysis (EDA):</strong> Discovered outliers in the sales data
+                                and analyzed distribution using Matplotlib.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">3</span>
+                            <div>
+                                <strong>Modeling / Visualization:</strong> Built a dashboard in Power BI to track
+                                real-time KPI performance.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Key Insights & Visuals -->
+                    <div class="case-study-section">
+                        <h3 class="fw-bold mb-3">Key Insights & Visualizations</h3>
+                        <p class="mb-4">Show, don't just tell. Insert your charts here.</p>
+
+                        <!-- Example Visualization Placeholder -->
+                        <figure class="mb-5">
+                            <div class="viz-placeholder rounded-4 shadow-sm border">
+                                <div class="text-center p-5">
+                                    <i class="bi bi-bar-chart-fill fs-1 mb-3 d-block text-secondary"></i>
+                                    <h5 class="fw-bold text-secondary">Insert Chart/Dashboard Screenshot Here</h5>
+                                    <p class="small text-muted">e.g., "Customer Segmentation by Revenue"</p>
+                                </div>
+                            </div>
+                            <figcaption class="figure-caption text-center">Figure 1: Analysis showing that top 20%
+                                customers contribute 80% revenue.</figcaption>
+                        </figure>
+
+                        <h5 class="fw-bold">What does this tell us?</h5>
+                        <p>Interpret the chart. "We clearly see that Region A is underperforming despite high marketing
+                            spend..."</p>
+                    </div>
+
+                    <!-- 5. Recommendations -->
+                    <div class="case-study-section">
+                        <h3 class="fw-bold mb-3">Recommendations</h3>
+                        <div class="alert alert-light border-start border-primary border-4" role="alert">
+                            <h5 class="alert-heading fw-bold"><i
+                                    class="bi bi-lightbulb-fill text-warning me-2"></i>Actionable Strategy</h5>
+                            <p class="mb-0">Based on the analysis, I recommended reallocation of the marketing budget
+                                from Region A to Region B, projected to increase overall ROI by 10%.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Sidebar Info -->
+                <div class="col-lg-4">
+                    <div class="sidebar-sticky">
+                        <div class="card border-0 shadow rounded-4 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3">Technologies Used</h5>
+                                <div>
+                                    <span class="tech-badge">Power BI</span>
+                                    <span class="tech-badge">DAX</span>
+                                    <span class="tech-badge">SQL</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow rounded-4 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3">Project Links</h5>
+                                <div class="d-grid gap-2">
+                                    <a href="#!" class="btn btn-outline-dark fw-bold">
+                                        <i class="bi bi-github me-2"></i>View Source Code
+                                    </a>
+                                    <a href="#!" class="btn btn-outline-primary fw-bold">
+                                        <i class="bi bi-file-earmark-pdf me-2"></i>View Full Report (PDF)
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Author/Contact Mini Card -->
+                        <div class="card border-0 bg-gradient-primary-to-secondary text-white rounded-4">
+                            <div class="card-body p-4 text-center">
+                                <h5 class="fw-bold mb-2">Interested in this analysis?</h5>
+                                <p class="small mb-3 text-white-50">Let's discuss how data can drive your business.</p>
+                                <a href="mailto:dangnguyen.working@gmail.com"
+                                    class="btn btn-light btn-sm fw-bold text-primary">Contact Me</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-end flex-column flex-sm-row">
+                <div class="col-auto">
+                    <div class="small m-0">Copyright &copy; Hai-Dang Nguyen 2026</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+</body>
+
+</html>

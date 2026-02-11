@@ -21,29 +21,72 @@
     <link href="css/styles.css" rel="stylesheet" />
     <style>
         /* Custom styles for the case study page */
+        :root {
+            /* Reduced font sizes for smaller screens */
+            --bs-body-font-size: 0.95rem;
+            --h1-size: 2.5rem;
+            --h2-size: 1.75rem;
+            --h3-size: 1.25rem;
+        }
+
+        body {
+            font-size: var(--bs-body-font-size);
+            line-height: 1.6;
+        }
+
         .case-study-hero {
             background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
             color: white;
-            padding: 4rem 0;
-            margin-bottom: 3rem;
+            padding: 3rem 0;
+            margin-bottom: 2.5rem;
+        }
+
+        .case-study-hero h1 {
+            font-size: var(--h1-size);
+            font-weight: 700;
         }
 
         .case-study-section {
-            margin-bottom: 4rem;
+            margin-bottom: 3.5rem;
+        }
+
+        /* Major Headings (Case Study 1, Executive Summary) */
+        h2.section-heading {
+            font-size: var(--h2-size);
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Sub Headings (Business Challenge, Solution, etc.) */
+        h3.sub-heading {
+            font-size: var(--h3-size);
+            font-weight: 600;
+            color: #343a40;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .metric-card {
             border-left: 4px solid #1e30f3;
             background-color: #f8f9fa;
-            padding: 1.5rem;
+            padding: 1.25rem;
             height: 100%;
         }
 
         .tech-badge {
-            font-size: 0.9rem;
-            padding: 0.5em 1em;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            padding: 0.4em 0.8em;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
             display: inline-block;
             border: 1px solid #dee2e6;
             border-radius: 20px;
@@ -51,15 +94,43 @@
             color: #212529;
         }
 
+        /* Enhanced Code Block Styling */
+        .code-snippet-container {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-header {
+            background-color: #e9ecef;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: #212529;
+        }
+
         .viz-placeholder {
             background-color: #e9ecef;
-            height: 400px;
+            height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #6c757d;
             border-radius: 1rem;
             margin-bottom: 1rem;
+            border: 2px dashed #dee2e6;
         }
 
         .sidebar-sticky {
@@ -72,7 +143,7 @@
 <body class="d-flex flex-column h-100 bg-light">
     <main class="flex-shrink-0">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm sticky-top">
             <div class="container px-5">
                 <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Hai-Dang
                         Nguyen</span></a>
@@ -96,12 +167,13 @@
                 <div class="row gx-5 align-items-center justify-content-center">
                     <div class="col-lg-10 col-xl-9">
                         <div class="text-center">
-                            <div class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide">Data
+                            <div
+                                class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide shadow-sm">
+                                Data
                                 Analysis</div>
-                            <h1 class="display-4 fw-bolder mb-3">Project Title Goes Here</h1>
-                            <p class="lead fw-normal text-white-50 mb-0">A one-sentence summary of the project's main
-                                impact or goal (e.g., "Predicted customer churn with 85% accuracy using Random Forest").
-                            </p>
+                            <h1 class="mb-3">Project Title Goes Here</h1>
+                            <p class="lead fw-normal text-white-50 mb-0" style="font-size: 1.1rem;">A one-sentence
+                                summary of the project's main impact or goal.</p>
                         </div>
                     </div>
                 </div>
@@ -114,143 +186,143 @@
                 <!-- Left Column: Main Narrative -->
                 <div class="col-lg-8">
 
-                    <!-- 1. Executive Summary -->
+                    <!-- Executive Summary -->
                     <div class="case-study-section">
-                        <h2 class="fw-bolder text-gradient d-inline-block mb-4">Executive Summary</h2>
-                        <p class="fs-5 mb-4">Briefly explain the "Why" and the "Result". Keep this section short for
-                            recruiters who only scan. Example: The company was facing a 15% churn rate. This project
-                            analyzed user behavior and identified key friction points, proposing solutions to reduce
-                            churn by 5%.</p>
+                        <h2 class="section-heading" id="executive-summary">Executive Summary</h2>
+                        <p class="mb-4">Briefly explain the "Why" and the "Result". Keep this section short for
+                            recruiters who only scan.</p>
 
-                        <!-- Key Metrics Grid -->
-                        <div class="row g-4 mb-4">
+                        <!-- Key Metrics (Optional but recommended) -->
+                        <div class="row g-3 mb-2">
                             <div class="col-md-6">
-                                <div class="metric-card">
-                                    <h3 class="fw-bold text-primary mb-1">Total Impact</h3>
-                                    <div class="small text-muted">Revenue/Time Saved</div>
+                                <div class="metric-card shadow-sm">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-people-fill fs-3 text-primary me-3"></i>
+                                        <div>
+                                            <h5 class="fw-bold mb-0">Metric 1</h5>
+                                            <small class="text-muted">Description</small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="metric-card">
-                                    <h3 class="fw-bold text-primary mb-1">Accuracy</h3>
-                                    <div class="small text-muted">Model Performance</div>
-                                </div>
-                            </div>
+                            <!-- Add more metrics as needed -->
                         </div>
                     </div>
 
-                    <!-- 2. Business Problem -->
+                    <!-- Case Study 1 Wrapper -->
                     <div class="case-study-section">
-                        <h3 class="fw-bold mb-3">The Business Problem</h3>
-                        <p>Dive deeper into the context. What questions were you trying to answer? Who is the
-                            stakeholder? Why does this matter?</p>
-                        <ul>
-                            <li>Question 1: What segments of customers are most profitable?</li>
-                            <li>Question 2: How does seasonality affect sales?</li>
-                        </ul>
-                    </div>
+                        <h2 class="section-heading" id="case-study-1">Case Study 1: [Topic]</h2>
 
-                    <!-- 3. Methodology & Approach -->
-                    <div class="case-study-section">
-                        <h3 class="fw-bold mb-3">My Approach</h3>
-                        <p>Describe your technical process here. Don't just list steps, explain your choices.</p>
+                        <!-- 1. The Business Challenge -->
+                        <h3 class="sub-heading">The Business Challenge</h3>
+                        <p>What problem were you solving?</p>
 
+                        <!-- 2. My Approach -->
+                        <h3 class="sub-heading">My Approach</h3>
                         <div class="d-flex align-items-start mb-3">
                             <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
                             <div>
-                                <strong>Data Collection & Cleaning:</strong> Used Python (Pandas) to handle missing
-                                values and merge 3 different datasets.
+                                <strong>Step 1:</strong> Description of step 1.
                             </div>
                         </div>
-                        <div class="d-flex align-items-start mb-3">
-                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
-                            <div>
-                                <strong>Exploratory Data Analysis (EDA):</strong> Discovered outliers in the sales data
-                                and analyzed distribution using Matplotlib.
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-start mb-3">
-                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">3</span>
-                            <div>
-                                <strong>Modeling / Visualization:</strong> Built a dashboard in Power BI to track
-                                real-time KPI performance.
-                            </div>
-                        </div>
-                    </div>
+                        <!-- Add more steps -->
 
-                    <!-- 4. Key Insights & Visuals -->
-                    <div class="case-study-section">
-                        <h3 class="fw-bold mb-3">Key Insights & Visualizations</h3>
-                        <p class="mb-4">Show, don't just tell. Insert your charts here.</p>
-
-                        <!-- Example Visualization Placeholder -->
-                        <figure class="mb-5">
-                            <div class="viz-placeholder rounded-4 shadow-sm border">
-                                <div class="text-center p-5">
-                                    <i class="bi bi-bar-chart-fill fs-1 mb-3 d-block text-secondary"></i>
-                                    <h5 class="fw-bold text-secondary">Insert Chart/Dashboard Screenshot Here</h5>
-                                    <p class="small text-muted">e.g., "Customer Segmentation by Revenue"</p>
+                        <!-- 3. Solution (Code Snippet) -->
+                        <h3 class="sub-heading">Solution</h3>
+                        <p class="mb-3">Below is the code snippet:</p>
+                        <div class="code-snippet-container shadow-sm">
+                            <div class="code-header">
+                                <span><i class="bi bi-code-slash me-2"></i>Code</span>
+                                <span class="badge bg-light text-dark border">Language</span>
+                            </div>
+                            <div id="code-container-1"
+                                style="max-height: 200px; overflow: hidden; transition: max-height 0.5s ease; position: relative;">
+                                <pre class="mb-0"><code># Your code here</code></pre>
+                                <div id="code-fade-1"
+                                    style="position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, #f8f9fa);">
                                 </div>
                             </div>
-                            <figcaption class="figure-caption text-center">Figure 1: Analysis showing that top 20%
-                                customers contribute 80% revenue.</figcaption>
+                            <div class="text-center p-2 bg-light border-top">
+                                <button id="btn-toggle-1"
+                                    class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-4"
+                                    onclick="toggleCode('1')">
+                                    See More <i class="bi bi-chevron-down ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 4. Key Insights -->
+                        <h3 class="sub-heading">Key Insights</h3>
+                        <ul>
+                            <li class="mb-2"><strong>Insight 1:</strong> Detail here.</li>
+                        </ul>
+
+                        <!-- Image Placeholder -->
+                        <figure class="mt-4 mb-4">
+                            <div class="text-center">
+                                <div class="viz-placeholder">Image Placeholder</div>
+                            </div>
+                            <figcaption class="figure-caption text-center">Figure 1: Description.</figcaption>
                         </figure>
 
-                        <h5 class="fw-bold">What does this tell us?</h5>
-                        <p>Interpret the chart. "We clearly see that Region A is underperforming despite high marketing
-                            spend..."</p>
-                    </div>
-
-                    <!-- 5. Recommendations -->
-                    <div class="case-study-section">
-                        <h3 class="fw-bold mb-3">Recommendations</h3>
-                        <div class="alert alert-light border-start border-primary border-4" role="alert">
-                            <h5 class="alert-heading fw-bold"><i
+                        <!-- 5. Recommendation -->
+                        <h3 class="sub-heading">Recommendation</h3>
+                        <div class="alert alert-light border-start border-primary border-4 shadow-sm" role="alert">
+                            <h5 class="alert-heading fw-bold fs-6"><i
                                     class="bi bi-lightbulb-fill text-warning me-2"></i>Actionable Strategy</h5>
-                            <p class="mb-0">Based on the analysis, I recommended reallocation of the marketing budget
-                                from Region A to Region B, projected to increase overall ROI by 10%.</p>
+                            <p class="mb-2 small"><strong>Strategy 1:</strong> Detail here.</p>
                         </div>
+
                     </div>
+                    <!-- End Case Study 1 -->
 
                 </div>
 
                 <!-- Right Column: Sidebar Info -->
                 <div class="col-lg-4">
                     <div class="sidebar-sticky">
-                        <div class="card border-0 shadow rounded-4 mb-4">
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
                             <div class="card-body p-4">
-                                <h5 class="fw-bold mb-3">Technologies Used</h5>
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Technologies</h5>
                                 <div>
-                                    <span class="tech-badge">Python</span>
-                                    <span class="tech-badge">Pandas</span>
-                                    <span class="tech-badge">SQL</span>
-                                    <span class="tech-badge">Tableau</span>
-                                    <span class="tech-badge">Scikit-learn</span>
+                                    <span class="tech-badge">Tech 1</span>
+                                    <span class="tech-badge">Tech 2</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card border-0 shadow rounded-4 mb-4">
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
                             <div class="card-body p-4">
-                                <h5 class="fw-bold mb-3">Project Links</h5>
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Project Links</h5>
                                 <div class="d-grid gap-2">
-                                    <a href="#!" class="btn btn-outline-dark fw-bold">
+                                    <a href="#!" class="btn btn-outline-dark btn-sm fw-bold">
                                         <i class="bi bi-github me-2"></i>View Source Code
                                     </a>
-                                    <a href="#!" class="btn btn-outline-primary fw-bold">
-                                        <i class="bi bi-file-earmark-pdf me-2"></i>View Full Report (PDF)
-                                    </a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Author/Contact Mini Card -->
-                        <div class="card border-0 bg-gradient-primary-to-secondary text-white rounded-4">
-                            <div class="card-body p-4 text-center">
-                                <h5 class="fw-bold mb-2">Interested in this analysis?</h5>
-                                <p class="small mb-3 text-white-50">Let's discuss how data can drive your business.</p>
-                                <a href="mailto:dangnguyen.working@gmail.com"
-                                    class="btn btn-light btn-sm fw-bold text-primary">Contact Me</a>
+                        <!-- Table of Contents Card -->
+                        <div class="card border-0 bg-white rounded-3 shadow mb-4 sticky-top" style="top: 6rem;">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Table of Contents</h5>
+                                <ul class="list-unstyled mb-0 small">
+                                    <li class="mb-3">
+                                        <a href="#executive-summary"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i
+                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Executive
+                                            Summary
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#case-study-1"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Case
+                                            Study 1
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 
@@ -261,11 +333,11 @@
 
     </main>
     <!-- Footer-->
-    <footer class="bg-white py-4 mt-auto">
+    <footer class="bg-white py-4 mt-auto border-top">
         <div class="container px-5">
-            <div class="row align-items-center justify-content-end flex-column flex-sm-row">
+            <div class="row align-items-center justify-content-center">
                 <div class="col-auto">
-                    <div class="small m-0">Copyright &copy; Hai-Dang Nguyen 2026</div>
+                    <div class="small m-0 text-muted">Copyright &copy; Hai-Dang Nguyen 2026</div>
                 </div>
             </div>
         </div>
@@ -274,6 +346,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <script>
+        function toggleCode(id) {
+            const container = document.getElementById('code-container-' + id);
+            const fade = document.getElementById('code-fade-' + id);
+            const btn = document.getElementById('btn-toggle-' + id);
+
+            if (container.style.maxHeight === '200px') {
+                container.style.maxHeight = 'none';
+                fade.style.display = 'none';
+                btn.innerHTML = 'See Less <i class="bi bi-chevron-up ms-1"></i>';
+            } else {
+                container.style.maxHeight = '200px';
+                fade.style.display = 'block';
+                btn.innerHTML = 'See More <i class="bi bi-chevron-down ms-1"></i>';
+            }
+        }
+    </script>
 </body>
 
 </html>

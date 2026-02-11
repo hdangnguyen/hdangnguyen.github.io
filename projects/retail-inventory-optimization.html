@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Business Performance Analysis: Inventory Optimization & Customer Retention" />
+    <meta name="author" content="Hai-Dang Nguyen" />
+    <title>Business Performance Analysis - Hai-Dang Nguyen Portfolio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <style>
+        /* Custom styles for the case study page */
+        :root {
+            /* Reduced font sizes for smaller screens */
+            --bs-body-font-size: 0.95rem;
+            --h1-size: 2.5rem;
+            --h2-size: 1.75rem;
+            --h3-size: 1.25rem;
+        }
+
+        body {
+            font-size: var(--bs-body-font-size);
+            line-height: 1.6;
+        }
+
+        .case-study-hero {
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            color: white;
+            padding: 3rem 0;
+            /* Reduced padding */
+            margin-bottom: 2.5rem;
+        }
+
+        .case-study-hero h1 {
+            font-size: var(--h1-size);
+            font-weight: 700;
+        }
+
+        .case-study-section {
+            margin-bottom: 3.5rem;
+        }
+
+        /* Major Headings (Case Study 1, Executive Summary) */
+        h2.section-heading {
+            font-size: var(--h2-size);
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Sub Headings (Business Challenge, Solution, etc.) */
+        h3.sub-heading {
+            font-size: var(--h3-size);
+            font-weight: 600;
+            color: #343a40;
+            /* Dark Grey */
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-card {
+            border-left: 4px solid #1e30f3;
+            background-color: #f8f9fa;
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        .tech-badge {
+            font-size: 0.85rem;
+            padding: 0.4em 0.8em;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            background-color: white;
+            color: #212529;
+        }
+
+        /* Enhanced Code Block Styling */
+        .code-snippet-container {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-header {
+            background-color: #e9ecef;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: #212529;
+        }
+
+        .viz-placeholder {
+            background-color: #e9ecef;
+            height: 300px;
+            /* reduced height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            border: 2px dashed #dee2e6;
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm sticky-top">
+            <div class="container px-5">
+                <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">Hai-Dang
+                        Nguyen</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item"><a class="nav-link" href="../resume.html">About Me</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../book.html">Book Read</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Case Study Hero Header-->
+        <header class="case-study-hero">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="col-lg-10 col-xl-9">
+                        <div class="text-center">
+                            <div
+                                class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide shadow-sm">
+                                SQL & Cohort Analysis</div>
+                            <h1 class="mb-3">Business Performance Analysis</h1>
+                            <p class="lead fw-normal text-white-50 mb-0" style="font-size: 1.1rem;">Inventory
+                                Optimization & Customer Retention</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container px-5">
+            <div class="row gx-5">
+                <!-- Left Column: Main Narrative -->
+                <div class="col-lg-8">
+
+                    <!-- Executive Summary -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="executive-summary">Executive Summary</h2>
+                        <p class="mb-4">Transformed fragmented raw data from the Adventure Works database into a
+                            centralized reporting framework. By leveraging advanced SQL techniques, I addressed critical
+                            business challenges including <strong>Customer Retention (Cohort Analysis)</strong>,
+                            <strong>Inventory Efficiency (Stock-to-Sales Ratio)</strong>, and <strong>Market Growth
+                                Trends</strong>.
+                        </p>
+
+                        <!-- Key Metrics (Optional but recommended) -->
+                        <div class="row g-3 mb-2">
+                            <div class="col-md-6">
+                                <div class="metric-card shadow-sm">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-people-fill fs-3 text-primary me-3"></i>
+                                        <div>
+                                            <h5 class="fw-bold mb-0">Cohort Analysis</h5>
+                                            <small class="text-muted">Retention Tracking</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="metric-card shadow-sm">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-graph-up-arrow fs-3 text-primary me-3"></i>
+                                        <div>
+                                            <h5 class="fw-bold mb-0">Market Growth</h5>
+                                            <small class="text-muted">Trend Identification</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case Study 1 Wrapper -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="case-study-1">Case Study 1: Customer Retention Strategy (Cohort
+                            Analysis)</h2>
+
+                        <!-- 1. The Business Challenge -->
+                        <h3 class="sub-heading">The Business Challenge</h3>
+                        <p>The marketing department faced rising Customer Acquisition Costs (CAC) but lacked visibility
+                            into user lifecycle behavior. The key objective was to identify the exact "churn point" to
+                            shift focus from acquisition to retention.</p>
+
+                        <!-- 2. My Approach -->
+                        <h3 class="sub-heading">My Approach</h3>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div>
+                                <strong>Data Partitioning:</strong> Engineered a cohort model using SQL Window Functions
+                                (`PARTITION BY`).
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div>
+                                <strong>Tracking Activity:</strong> Tracked recurring customer activity over subsequent
+                                months to calculate dynamic retention rates.
+                            </div>
+                        </div>
+
+                        <!-- 3. Solution (Code Snippet) -->
+                        <h3 class="sub-heading">Solution</h3>
+                        <p class="mb-3">Below is the SQL query engineered to generate the cohort analysis dataset:</p>
+                        <div class="code-snippet-container shadow-sm">
+                            <div class="code-header">
+                                <span><i class="bi bi-code-slash me-2"></i>SQL Query</span>
+                                <span class="badge bg-light text-dark border">PostgreSQL</span>
+                            </div>
+                            <div id="sql-container-cs1"
+                                style="max-height: 200px; overflow: hidden; transition: max-height 0.5s ease; position: relative;">
+                                <pre class="mb-0"><code>WITH successful_order AS ( -- find successful order 
+    SELECT  
+      EXTRACT(MONTH FROM ModifiedDate) order_month,
+      CustomerID customer_id
+    FROM `adventureworks2019.Sales.SalesOrderHeader` 
+    WHERE EXTRACT(YEAR FROM ModifiedDate) = 2014 AND Status = 5
+    ORDER BY customer_id, order_month
+),
+rank_time_order AS ( -- find order time
+    SELECT *,
+      ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY order_month) order_time
+    FROM successful_order
+),
+first_order AS ( -- find first order
+    SELECT order_month AS month_join, customer_id
+    FROM rank_time_order
+    WHERE order_time = 1
+),
+find_month_diff AS ( -- join & find month_diff
+    SELECT distinct order_month, month_join, a.customer_id,
+      (order_month - month_join) month_diff_num
+    FROM successful_order a
+    INNER JOIN first_order b ON a.customer_id = b.customer_id
+    ORDER BY month_join, order_month
+)
+SELECT -- format & count
+  month_join,
+  CONCAT('M-',month_diff_num) month_diff,
+  COUNT(customer_id) customer_count
+FROM find_month_diff
+GROUP BY month_join, CONCAT('M-',month_diff_num)
+ORDER BY month_join, month_diff</code></pre>
+                                <div id="sql-fade-cs1"
+                                    style="position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, #f8f9fa);">
+                                </div>
+                            </div>
+                            <div class="text-center p-2 bg-light border-top">
+                                <button id="btn-toggle-cs1"
+                                    class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-4"
+                                    onclick="toggleSQL('cs1')">
+                                    See More <i class="bi bi-chevron-down ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 4. Key Insights (with Image Placeholder) -->
+                        <h3 class="sub-heading">Key Insights</h3>
+                        <ul>
+                            <li class="mb-2"><strong>The "One-and-Done" Problem:</strong> Across all cohorts,
+                                <strong>&lt; 5%</strong> of customers return for a second purchase in Month 1 (M-1).
+                                Retention quality drops from <strong>3.8%</strong> (Jan) to <strong>1.1%</strong> (Jun).
+                            </li>
+                            <li class="mb-2"><strong>The "90-Day Resurrection" Pattern:</strong> Customers acquired in
+                                Jan/Feb showed a <strong>300% spike in activity at Month 3</strong> (12-13%), indicating
+                                quarterly cyclical demand.</li>
+                        </ul>
+
+                        <!-- Image Placeholder -->
+                        <figure class="mt-4 mb-4">
+                            <div class="text-center">
+                                <img src="../assets/project 1/project 1 - image 1.png"
+                                    class="img-fluid rounded shadow-sm border" alt="Cohort Retention Heatmap Analysis">
+                            </div>
+                            <figcaption class="figure-caption text-center">Figure 1: Retention rates dropping
+                                significantly after M-1 across all cohorts.</figcaption>
+                        </figure>
+
+                        <!-- 5. Recommendation -->
+                        <h3 class="sub-heading">Recommendation</h3>
+                        <div class="alert alert-light border-start border-primary border-4 shadow-sm" role="alert">
+                            <h5 class="alert-heading fw-bold fs-6"><i
+                                    class="bi bi-lightbulb-fill text-warning me-2"></i>Actionable Strategy</h5>
+                            <p class="mb-2 small"><strong>Fix Onboarding (Day 0-30):</strong> Implement an automated
+                                "Welcome Series" email sequence focusing on product education immediately after
+                                purchase.</p>
+                            <p class="mb-0 small"><strong>Automate Re-stock (Day 85):</strong> Trigger a targeted
+                                "Maintenance & Upgrade" promotion exactly <strong>85 days</strong> after first purchase
+                                to capture the M-3 resurgence.</p>
+                        </div>
+
+                    </div>
+                    <!-- End Case Study 1 -->
+
+                    <!-- Case Study 2 Wrapper -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="case-study-2">Case Study 2: Inventory Optimization Strategy</h2>
+
+                        <!-- 1. The Business Challenges -->
+                        <h3 class="sub-heading">The Business Challenges</h3>
+                        <ul>
+                            <li class="mb-2"><strong>Rising Warehousing Costs:</strong> The company faced increasing
+                                storage fees due to stagnant inventory in specific categories.</li>
+                            <li class="mb-2"><strong>Lost Revenue:</strong> Despite high stock levels overall, popular
+                                items frequently experienced stockouts, leading to missed sales opportunities.</li>
+                            <li class="mb-2"><strong>Lack of Visibility:</strong> The supply chain team relied on static
+                                inventory counts, failing to account for real-time sales velocity (how fast products are
+                                actually selling).</li>
+                        </ul>
+
+                        <!-- 2. My Approach -->
+                        <h3 class="sub-heading">My Approach</h3>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div>
+                                <strong>Shift to Dynamic Metrics:</strong> Instead of viewing "Stock" and "Sales" in
+                                isolation, I decided to correlate them to measure <strong>Capital Efficiency</strong>.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div>
+                                <strong>The "Health Check" Logic:</strong> I defined a dynamic <strong>Stock-to-Sales
+                                    Ratio</strong> to categorize inventory health:
+                                <ul class="mt-2 mb-0">
+                                    <li><em>Ratio > 10.0:</em> Critical Overstock (Dead Capital).</li>
+                                    <li><em>Ratio < 1.0:</em> High Stockout Risk (Lost Revenue).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 3. Solution -->
+                        <h3 class="sub-heading">Solution</h3>
+                        <ul>
+                            <li class="mb-2"><strong>SQL Engineering:</strong> I executed complex joins between the
+                                `Production.WorkOrder` (Supply) and `Sales.SalesOrderDetail` (Demand) tables to
+                                aggregate data by month and ProductID.</li>
+                        </ul>
+                        <div class="code-snippet-container shadow-sm">
+                            <div class="code-header">
+                                <span><i class="bi bi-code-slash me-2"></i>SQL Query</span>
+                                <span class="badge bg-light text-dark border">PostgreSQL</span>
+                            </div>
+                            <div id="sql-container-cs2"
+                                style="max-height: 200px; overflow: hidden; transition: max-height 0.5s ease; position: relative;">
+                                <pre class="mb-0"><code>WITH 
+  sales_2011 AS( -- find sales infors in 2011 by joinning table
+    SELECT 
+      EXTRACT (MONTH FROM OrderDate) mth,
+      EXTRACT (year FROM OrderDate) yr,
+      detail.ProductID,
+      p.Name,
+      SUM(OrderQty) sales
+    FROM `adventureworks2019.Sales.SalesOrderDetail` detail
+    INNER JOIN `adventureworks2019.Sales.SalesOrderHeader` header
+      ON detail.SalesOrderID = header.SalesOrderID
+    INNER JOIN `adventureworks2019.Production.Product` p
+      ON detail.ProductID = p.ProductID
+    WHERE EXTRACT (year FROM OrderDate) = 2011
+    GROUP BY 1, 2, 3, 4
+    ORDER BY 1 DESC, sales
+  ),
+
+  stock_2011 AS ( -- find stock infors in 2011 by joinning table
+    SELECT 
+      EXTRACT(MONTH FROM o.ModifiedDate) mth,
+      EXTRACT(YEAR FROM o.ModifiedDate) yr,
+      o.ProductID,
+      p.Name product_name,
+      SUM(StockedQty) stock
+    FROM `adventureworks2019.Production.WorkOrder` o
+    INNER JOIN `adventureworks2019.Production.Product` p
+      ON o.ProductID = p.ProductID
+    WHERE EXTRACT(YEAR FROM o.ModifiedDate) = 2011 
+    GROUP BY 1,2,3,4
+    ORDER BY 1 DESC)
+
+SELECT -- combined CTE & calculate the rate
+  sa.mth,
+  sa.yr,
+  sa.ProductId,
+  sa.Name,
+  sales,
+  stock,
+  ROUND((stock/sales), 1) ratio
+FROM sales_2011 sa
+LEFT JOIN stock_2011 st
+  ON sa.mth = st.mth
+  AND sa.productID = st.productID
+ORDER BY 1 DESC, 7 DESC</code></pre>
+                                <div id="sql-fade-cs2"
+                                    style="position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, #f8f9fa);">
+                                </div>
+                            </div>
+                            <div class="text-center p-2 bg-light border-top">
+                                <button id="btn-toggle-cs2"
+                                    class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-4"
+                                    onclick="toggleSQL('cs2')">
+                                    See More <i class="bi bi-chevron-down ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <ul>
+                            <li class="mb-2"><strong>Metric Calculation:</strong> Developed the query to calculate:
+                                <code>Ratio = End_of_Month_Stock / Monthly_Sales_Qty</code>.
+                            </li>
+                            <li class="mb-2"><strong>Visualization:</strong> Utilized Python (Seaborn) to generate an
+                                "Inventory Risk Alert" chart, highlighting the top 5 inefficient products in Red for
+                                immediate management attention.</li>
+                        </ul>
+
+                        <!-- 4. Key Insights -->
+                        <h3 class="sub-heading">Key Insights</h3>
+                        <ul>
+                            <li class="mb-2"><strong>Critical Overstock Discovery:</strong> In November 2011, the
+                                <strong>Road-650 Red, 62</strong> model reached an alarming ratio of
+                                <strong>56.0</strong> (56 units in stock vs. only 1 sold). This indicates over <strong>4
+                                    years of excess supply</strong> sitting idle at the current sales velocity.
+                            </li>
+                            <li class="mb-2"><strong>Stockout Risks:</strong> Conversely, the <strong>Road-150</strong>
+                                series frequently dropped to a ratio of <strong>0.1</strong> (e.g., Stock 4 vs. Demand
+                                28), signaling a severe inability to fulfill customer orders during peak months.</li>
+                        </ul>
+
+                        <!-- Image Placeholder -->
+                        <figure class="mt-4 mb-4">
+                            <div class="text-center">
+                                <img src="../assets/project 1/project 1 - image 2.png"
+                                    class="img-fluid rounded shadow-sm border" alt="Cohort Retention Heatmap Analysis">
+                            </div>
+                            <figcaption class="figure-caption text-center">Figure 1: Retention rates dropping
+                                significantly after M-1 across all cohorts.</figcaption>
+                        </figure>
+
+                        <!-- 5. Recommendations -->
+                        <h3 class="sub-heading">Recommendations</h3>
+                        <div class="alert alert-light border-start border-primary border-4 shadow-sm" role="alert">
+                            <h5 class="alert-heading fw-bold fs-6"><i
+                                    class="bi bi-lightbulb-fill text-warning me-2"></i>Actionable Strategy</h5>
+                            <p class="mb-2 small"><strong>Liquidation Strategy:</strong> Immediately halt procurement
+                                for the "Road-650 Red" series. Launch a <strong>20% Clearance Sale</strong> to release
+                                trapped working capital and free up warehouse space.</p>
+                            <p class="mb-0 small"><strong>Automated Reordering:</strong> Implement a dynamic alert
+                                system. Trigger a priority restock order whenever the Stock-to-Sales Ratio drops
+                                <strong>below 1.5</strong> to prevent future revenue loss.
+                            </p>
+                        </div>
+
+                    </div>
+                    <!-- End Case Study 2 -->
+
+                </div>
+
+                <!-- Right Column: Sidebar Info -->
+                <div class="col-lg-4">
+                    <div class="sidebar-sticky">
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Technologies</h5>
+                                <div>
+                                    <span class="tech-badge">SQL (Window Functions)</span>
+                                    <span class="tech-badge">Cohort Analysis</span>
+                                    <span class="tech-badge">Data Visualization</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Project Links</h5>
+                                <div class="d-grid gap-2">
+                                    <a href="https://github.com/hdangnguyen/sql_1" target="_blank"
+                                        class="btn btn-outline-dark btn-sm fw-bold">
+                                        <i class="bi bi-github me-2"></i>View Source Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Author/Contact Mini Card -->
+                        <!-- Table of Contents Card -->
+                        <div class="card border-0 bg-white rounded-3 shadow mb-4 sticky-top" style="top: 6rem;">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Table of Contents</h5>
+                                <ul class="list-unstyled mb-0 small">
+                                    <li class="mb-3">
+                                        <a href="#executive-summary"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i
+                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Executive
+                                            Summary
+                                        </a>
+                                    </li>
+                                    <li class="mb-3">
+                                        <a href="#case-study-1"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Case
+                                            Study 1: Customer Retention
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#case-study-2"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Case
+                                            Study 2: Inventory Optimization
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto border-top">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-auto">
+                    <div class="small m-0 text-muted">Copyright &copy; Hai-Dang Nguyen 2026</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+    <script>
+        function toggleSQL(id) {
+            const container = document.getElementById('sql-container-' + id);
+            const fade = document.getElementById('sql-fade-' + id);
+            const btn = document.getElementById('btn-toggle-' + id);
+
+            if (container.style.maxHeight === '200px') {
+                container.style.maxHeight = 'none';
+                fade.style.display = 'none';
+                btn.innerHTML = 'See Less <i class="bi bi-chevron-up ms-1"></i>';
+            } else {
+                container.style.maxHeight = '200px';
+                fade.style.display = 'block';
+                btn.innerHTML = 'See More <i class="bi bi-chevron-down ms-1"></i>';
+                // Optional: Scroll back to top of code snippet if needed
+            }
+        }
+    </script>
+</body>
+
+</html>
