@@ -1,0 +1,8 @@
+title: Hai-Dang Nguyen Portfolio
+description: Business-Oriented Data Analyst
+url: "https://hdangnguyen.github.io"
+baseurl: ""
+timezone: Asia/Ho_Chi_Minh
+
+markdown: kramdown
+highlighter: rouge

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="{{ page.description | default: site.description }}" />
+    <meta name="author" content="Hai-Dang Nguyen" />
+    <title>{{ page.title }} - Hai-Dang Nguyen Portfolio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{{ '/assets/favicon.ico' | relative_url }}" />
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{{ '/css/styles.css' | relative_url }}" rel="stylesheet" />
+    <style>
+        /* Custom styles for the case study page */
+        .case-study-hero {
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .case-study-section {
+            margin-bottom: 4rem;
+        }
+
+        .metric-card {
+            border-left: 4px solid #1e30f3;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            height: 100%;
+        }
+
+        .tech-badge {
+            font-size: 0.9rem;
+            padding: 0.5em 1em;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            background-color: white;
+            color: #212529;
+        }
+
+        .viz-placeholder {
+            background-color: #e9ecef;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+            <div class="container px-5">
+                <a class="navbar-brand" href="{{ '/' | relative_url }}"><span class="fw-bolder text-primary">Hai-Dang
+                        Nguyen</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item"><a class="nav-link" href="{{ '/resume.html' | relative_url }}">About Me</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link"
+                                href="{{ '/projects.html' | relative_url }}">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ '/book.html' | relative_url }}">Book Read</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Case Study Hero Header-->
+        <header class="case-study-hero">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="col-lg-10 col-xl-9">
+                        <div class="text-center">
+                            <div class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide">{{
+                                page.category | default: "Project" }}</div>
+                            <h1 class="display-4 fw-bolder mb-3">{{ page.title }}</h1>
+                            <p class="lead fw-normal text-white-50 mb-0">{{ page.subtitle }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container px-5">
+            <div class="row gx-5">
+                <!-- Left Column: Main Narrative -->
+                <div class="col-lg-8">
+
+                    {{ content }}
+
+                </div>
+
+                <!-- Right Column: Sidebar Info -->
+                <div class="col-lg-4">
+                    <div class="sidebar-sticky">
+                        {% if page.technologies %}
+                        <div class="card border-0 shadow rounded-4 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3">Technologies Used</h5>
+                                <div>
+                                    {% for tech in page.technologies %}
+                                    <span class="tech-badge">{{ tech }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="card border-0 shadow rounded-4 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3">Project Links</h5>
+                                <div class="d-grid gap-2">
+                                    {% if page.source_url %}
+                                    <a href="{{ page.source_url }}" class="btn btn-outline-dark fw-bold">
+                                        <i class="bi bi-github me-2"></i>View Source Code
+                                    </a>
+                                    {% endif %}
+                                    {% if page.report_url %}
+                                    <a href="{{ page.report_url }}" class="btn btn-outline-primary fw-bold">
+                                        <i class="bi bi-file-earmark-pdf me-2"></i>View Full Report (PDF)
+                                    </a>
+                                    {% endif %}
+                                    {% unless page.source_url or page.report_url %}
+                                    <p class="text-muted small">Links not available for this project.</p>
+                                    {% endunless %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Author/Contact Mini Card -->
+                        <div class="card border-0 bg-gradient-primary-to-secondary text-white rounded-4">
+                            <div class="card-body p-4 text-center">
+                                <h5 class="fw-bold mb-2">Interested in this analysis?</h5>
+                                <p class="small mb-3 text-white-50">Let's discuss how data can drive your business.</p>
+                                <a href="mailto:dangnguyen.working@gmail.com"
+                                    class="btn btn-light btn-sm fw-bold text-primary">Contact Me</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-end flex-column flex-sm-row">
+                <div class="col-auto">
+                    <div class="small m-0">Copyright &copy; Hai-Dang Nguyen 2026</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{{ '/js/scripts.js' | relative_url }}"></script>
+</body>
+
+</html>
