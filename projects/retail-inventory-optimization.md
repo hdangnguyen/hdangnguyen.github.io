@@ -1,108 +1,108 @@
 ---
 layout: project
-title: Retail Inventory Optimization
-category: Data Cleaning & Analysis
-subtitle: Analyzed 2 years of inventory data to identify stockout patterns and slow-moving items, proposing a new reorder strategy.
-description: Retail Inventory Optimization using SQL
+title: Business Performance Analysis
+subtitle: Inventory Optimization & Customer Retention
+category: SQL & Cohort Analysis
+description: Transformed fragmented raw data from the Adventure Works database into a centralized reporting framework.
 technologies:
-  - SQL (PostgreSQL)
-  - Excel
-  - Tableau
+  - SQL (Window Functions)
+  - Cohort Analysis
+  - Data Visualization
 source_url: "#!"
 report_url: "#!"
 ---
 
-<!-- 1. Executive Summary -->
+<!-- Executive Summary -->
 <div class="case-study-section">
     <h2 class="fw-bolder text-gradient d-inline-block mb-4">Executive Summary</h2>
-    <p class="fs-5 mb-4">The client, a mid-sized retail chain, faced frequent stockouts of high-demand items 
-        while simultaneously holding excess inventory of slow-moving goods. By analyzing two years of sales 
-        and inventory data, I identified optimal reorder points and safety stock levels, reducing stockouts by 20%.</p>
-
-    <!-- Key Metrics Grid -->
-    <div class="row g-4 mb-4">
-        <div class="col-md-6">
-            <div class="metric-card">
-                <h3 class="fw-bold text-primary mb-1">20% Reduction</h3>
-                <div class="small text-muted">Stockout Frequency</div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="metric-card">
-                <h3 class="fw-bold text-primary mb-1">$15k Saved</h3>
-                <div class="small text-muted">Projected Annual Savings</div>
-            </div>
-        </div>
-    </div>
+    <p class="fs-5 mb-4">Transformed fragmented raw data from the Adventure Works database into a centralized reporting framework. By leveraging advanced SQL techniques, I addressed critical business challenges including <strong>Customer Retention (Cohort Analysis)</strong>, <strong>Inventory Efficiency (Stock-to-Sales Ratio)</strong>, and <strong>Market Growth Trends</strong>. The analysis provided actionable insights to reduce warehousing costs and optimize marketing spend.</p>
 </div>
 
-<!-- 2. Business Problem -->
+<!-- Case Study 1: Situation -->
 <div class="case-study-section">
-    <h3 class="fw-bold mb-3">The Business Problem</h3>
-    <p>Inventory mismanagement was leading to lost sales opportunities and tied-up capital. The existing reorder process was manual and reactive.</p>
-    <ul>
-        <li>Question 1: Which products are most prone to stockouts?</li>
-        <li>Question 2: What is the optimal safety stock level for each SKU?</li>
-        <li>Question 3: Which items are "dead stock" and should be liquidated?</li>
-    </ul>
+    <h3 class="fw-bold mb-3">Case Study 1: Customer Retention Strategy (Cohort Analysis)</h3>
+    <h4 class="fw-bold mt-4 mb-2">The Business Challenge (SITUATION)</h4>
+    <p>The marketing department faced rising Customer Acquisition Costs (CAC) but lacked visibility into user lifecycle behavior. The key objective was to identify the exact "churn point" to shift focus from acquisition to retention.</p>
+
+    <h4 class="fw-bold mt-4 mb-2">Technical Solution (TASK)</h4>
+    <p>I engineered a <strong>Cohort Analysis</strong> model using SQL Window Functions. By partitioning customers based on their initial purchase month (Month Join), I tracked their recurring activity over subsequent months to calculate the retention rate dynamically.</p>
 </div>
 
-<!-- 3. Methodology & Approach -->
+<!-- SQL Action -->
 <div class="case-study-section">
-    <h3 class="fw-bold mb-3">My Approach</h3>
-    <p>I utilized SQL for data extraction and transformation, followed by analysis in Excel and visualization in Tableau.</p>
-
-    <div class="d-flex align-items-start mb-3">
-        <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
-        <div>
-            <strong>Data Extraction (SQL):</strong> Wrote complex queries to join sales, inventory, and product tables. Calculated daily run rates and lead time variability.
-        </div>
-    </div>
-    <div class="d-flex align-items-start mb-3">
-        <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
-        <div>
-            <strong>Safety Stock Calculation:</strong> Implemented a formula based on demand variability and lead time to determine dynamic safety stock levels.
-        </div>
-    </div>
-    <div class="d-flex align-items-start mb-3">
-        <span class="badge bg-primary rounded-pill me-3 px-2 py-1">3</span>
-        <div>
-            <strong>Visualization:</strong> Created a Tableau dashboard to highlight critical items requiring immediate reorder or liquidation.
-        </div>
-    </div>
-</div>
-
-<!-- 4. Key Insights & Visuals -->
-<div class="case-study-section">
-    <h3 class="fw-bold mb-3">Key Insights & SQL Snippets</h3>
-    <p class="mb-4">Here is an example of the SQL query used to identify slow-moving inventory:</p>
-
+    <h3 class="fw-bold mb-3">SQL Implementation (ACTION)</h3>
+    <p class="mb-4">Here is the SQL query used to generate the cohort analysis:</p>
     <div class="card bg-light border-0 mb-4">
         <div class="card-body">
-<pre class="m-0"><code>SELECT 
-    p.product_name,
-    SUM(s.quantity) as total_sold_last_12m,
-    i.current_stock
-FROM products p
-JOIN sales s ON p.product_id = s.product_id
-JOIN inventory i ON p.product_id = i.product_id
-WHERE s.sale_date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
-GROUP BY p.product_name, i.current_stock
-HAVING SUM(s.quantity) < 10 AND i.current_stock > 50
-ORDER BY i.current_stock DESC;</code></pre>
+<pre class="m-0"><code>
+WITH 
+  successful_order AS ( -- find successful order 
+    SELECT  
+      EXTRACT(MONTH FROM ModifiedDate) order_month,
+      CustomerID customer_id
+    FROM `adventureworks2019.Sales.SalesOrderHeader` 
+    WHERE EXTRACT(YEAR FROM ModifiedDate) = 2014
+      AND Status = 5
+    ORDER BY customer_id, order_month
+  ),
+
+  rank_time_order AS ( -- find order time
+    SELECT
+      *,
+      ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY order_month) order_time
+    FROM successful_order
+  ),
+
+  frist_order AS ( -- find first order
+    SELECT 
+      order_month AS month_join, 
+      customer_id
+    FROM rank_time_order
+    WHERE order_time = 1
+  ),
+
+  find_month_diff AS ( -- join & find month_diff
+    SELECT
+      distinct order_month,
+      month_join,
+      a.customer_id,
+      (order_month - month_join) month_diff_num
+    FROM successful_order a
+    INNER JOIN frist_order b
+      ON a.customer_id = b.customer_id
+    ORDER BY month_join, order_month
+  )
+
+SELECT -- format & count
+  month_join,
+  CONCAT('M-',month_diff_num) month_diff,
+  COUNT(customer_id) customer_count
+FROM find_month_diff
+GROUP BY month_join, CONCAT('M-',month_diff_num)
+ORDER BY month_join, month_diff
+</code></pre>
         </div>
     </div>
-
-    <h5 class="fw-bold">What does this tell us?</h5>
-    <p>This query isolates products that have sold fewer than 10 units in the last year but still have significant stock on hand, flagging them as candidates for clearance sales.</p>
 </div>
 
-<!-- 5. Recommendations -->
+<!-- Key Insights & Recommendations -->
 <div class="case-study-section">
-    <h3 class="fw-bold mb-3">Recommendations</h3>
-    <div class="alert alert-light border-start border-primary border-4" role="alert">
-        <h5 class="alert-heading fw-bold"><i
-                class="bi bi-lightbulb-fill text-warning me-2"></i>Actionable Strategy</h5>
-        <p class="mb-0">Implement an automated reorder trigger in the ERP system based on the calculated safety stock levels. Initiate a quarterly clearance sale for identified slow-moving items to free up warehouse space.</p>
+    <h3 class="fw-bold mb-3">Key Data Insights</h3>
+    <ul>
+        <li class="mb-2"><strong>The "One-and-Done" Problem:</strong> The data reveals a critical retention failure immediately after acquisition. Across all cohorts, <strong>< 5%</strong> of customers return for a second purchase in Month 1 (M-1). Furthermore, retention quality is degrading, dropping from <strong>3.8%</strong> in the January cohort to just <strong>1.1%</strong> in the June cohort.</li>
+        <li class="mb-2"><strong>The "90-Day Resurrection" Pattern:</strong> Despite the initial churn, a significant behavioral anomaly was detected in Q1 cohorts. Customers acquired in Jan/Feb showed a <strong>300% spike in activity at Month 3</strong> (jumping from ~4% in M-2 to <strong>12-13%</strong> in M-3). This indicates a strong quarterly cyclical demand (likely maintenance or seasonal upgrades) specific to early-year buyers.</li>
+    </ul>
+
+    <h3 class="fw-bold mb-3 mt-5">Strategic Recommendations</h3>
+     <div class="alert alert-light border-start border-primary border-4" role="alert">
+        <h5 class="alert-heading fw-bold"><i class="bi bi-lightbulb-fill text-warning me-2"></i>Fix the Onboarding Experience (Day 0-30)</h5>
+        <p class="mb-2">The steep drop-off at M-1 indicates a lack of post-purchase engagement.</p>
+        <p class="mb-0"><strong>Action:</strong> Implement an automated "Welcome Series" email sequence focusing on product education and setup guides immediately after the first purchase to build habit-forming behavior.</p>
+    </div>
+
+    <div class="alert alert-light border-start border-primary border-4 mt-4" role="alert">
+        <h5 class="alert-heading fw-bold"><i class="bi bi-lightbulb-fill text-warning me-2"></i>Automate "Re-stock" Campaigns (Day 85)</h5>
+        <p class="mb-2">Capitalize on the M-3 resurgence.</p>
+        <p class="mb-0"><strong>Action:</strong> Trigger a targeted "Maintenance & Upgrade" promotion exactly <strong>85 days</strong> after the first purchase. This preemptive move captures the high-intent traffic visible in the Jan/Feb cohorts.</p>
     </div>
 </div>
