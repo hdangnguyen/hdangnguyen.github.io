@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Sales Visualization Power BI Project Case Study" />
+    <meta name="author" content="Hai-Dang Nguyen" />
+    <title>Sales Visualization - Hai-Dang Nguyen Portfolio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <style>
+        /* Custom styles for the case study page */
+        :root {
+            /* Reduced font sizes for smaller screens */
+            --bs-body-font-size: 0.95rem;
+            --h1-size: 2.5rem;
+            --h2-size: 1.75rem;
+            --h3-size: 1.25rem;
+        }
+
+        body {
+            font-size: var(--bs-body-font-size);
+            line-height: 1.6;
+        }
+
+        .case-study-hero {
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            color: white;
+            padding: 3rem 0;
+            /* Reduced padding */
+            margin-bottom: 2.5rem;
+        }
+
+        .case-study-hero h1 {
+            font-size: var(--h1-size);
+            font-weight: 700;
+        }
+
+        .case-study-section {
+            margin-bottom: 3.5rem;
+        }
+
+        /* Major Headings (Executive Summary, Key Insights) */
+        h2.section-heading {
+            font-size: var(--h2-size);
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Sub Headings (Business Challenge, Solution, etc.) */
+        h3.sub-heading {
+            font-size: var(--h3-size);
+            font-weight: 600;
+            color: #343a40;
+            /* Dark Grey */
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-card {
+            border-left: 4px solid #1e30f3;
+            background-color: #f8f9fa;
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        .tech-badge {
+            font-size: 0.85rem;
+            padding: 0.4em 0.8em;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            background-color: white;
+            color: #212529;
+        }
+
+        .viz-placeholder {
+            background-color: #e9ecef;
+            height: 300px;
+            /* reduced height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            border: 2px dashed #dee2e6;
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm sticky-top">
+            <div class="container px-5">
+                <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">Hai-Dang
+                        Nguyen</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item"><a class="nav-link" href="../resume.html">About Me</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../book.html">Book Read</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Case Study Hero Header-->
+        <header class="case-study-hero">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="col-lg-10 col-xl-9">
+                        <div class="text-center">
+                            <div
+                                class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide shadow-sm">
+                                Power BI & Data Visualization</div>
+                            <h1 class="mb-3">Global Sales Performance Dashboard</h1>
+                            <p class="lead fw-normal text-white-50 mb-0" style="font-size: 1.1rem;">An interactive Power
+                                BI analysis driving strategic decisions on market expansion and margin optimization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container px-5">
+            <div class="row gx-5">
+                <!-- Left Column: Main Narrative -->
+                <div class="col-lg-8">
+
+                    <!-- Executive Summary -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="executive-summary">Executive Summary</h2>
+                        <p class="mb-4">Superstore, a rapidly growing global retail company, is actively seeking to
+                            expand its market share across multiple continents. This project involves analyzing their
+                            comprehensive sales dataset—encompassing transactions, regional personnel, and product
+                            returns—to provide a clear picture of their current overall business performance. The
+                            resulting dashboard empowers senior management to make data-driven decisions on targeted
+                            market expansion and strategic product positioning.</p>
+
+                        <!-- Cover Photo -->
+                        <div class="mb-5 text-center">
+                            <img src="../assets/pbi-1/cover-photo.jpg" class="img-fluid rounded-4 shadow"
+                                alt="Global Sales Performance Dashboard Cover">
+                        </div>
+                    </div>
+
+                    <!-- Business Problem -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="business-challenge">Business Challenge</h2>
+                        <p>To support Superstore's ambitious growth and market expansion goals, senior management needed
+                            actionable insights into their global operations. In its current state, the company lacked a
+                            unified view of its fragmented international data. The primary objective of this project was
+                            to analyze the raw data and answer three critical strategic questions:</p>
+                        <ul>
+                            <li><strong>Overall Performance:</strong> What is the current state of the business in terms
+                                of revenue, profitability, and general growth trends?</li>
+                            <li><strong>Market Analysis:</strong> How are different geographic markets performing, and
+                                where are the most promising opportunities for strategic expansion?</li>
+                            <li><strong>Product Strategy:</strong> Which product categories and sub-categories are
+                                driving success, and what products should the company focus on strategically?</li>
+                        </ul>
+                    </div>
+
+                    <!-- My Approach -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="my-approach">My Approach</h2>
+                        <p>To build a practical and effective dashboard, I applied principles from Stanford's Design
+                            Thinking process, walking through the problem from the perspective of a business manager:
+                        </p>
+
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div>
+                                <strong>Empathize & Define:</strong> First, I put myself in the shoes of the "Senior
+                                Manager" to clearly define the ultimate goals and the specific business questions the
+                                dashboard needed to answer.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div>
+                                <strong>Prototype & Test:</strong> I started by designing simple, low-fidelity layouts.
+                                I then built test versions in Power BI, constantly checking them against my initial
+                                goals to see if the layout was intuitive and answered the right questions.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">3</span>
+                            <div>
+                                <strong>Finalize & Find Insights:</strong> Once the dashboard design was finalized, I
+                                used it to explore the data, uncover meaningful trends, and develop actionable
+                                recommendations.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Design Thinking -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="design-thinking">Design Thinking</h2>
+
+                        <!-- Step 1 -->
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">Step 1. Empathize</h4>
+                            <p class="text-muted mb-3">Identify the stakeholder's goals and understand the underlying
+                                business problems.</p>
+                            <img src="../assets/pbi-1/pbi-1-design-thinking-1.1.svg"
+                                class="img-fluid rounded-3 shadow-sm mb-3" alt="Empathize Stage 1">
+                            <img src="../assets/pbi-1/pbi-1-design-thinking-1.2.svg"
+                                class="img-fluid rounded-3 shadow-sm" alt="Empathize Stage 2">
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">Step 2. Define</h4>
+                            <p class="text-muted mb-3">Clearly define the core questions and metrics the dashboard must
+                                address.</p>
+                            <img src="../assets/pbi-1/pbi-1-design-thinking-2.1.svg"
+                                class="img-fluid rounded-3 shadow-sm mb-3" alt="Define Stage 1">
+                            <img src="../assets/pbi-1/pbi-1-design-thinking-2.2.svg"
+                                class="img-fluid rounded-3 shadow-sm" alt="Define Stage 2">
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">Step 3. Ideate</h4>
+                            <p class="text-muted mb-3">Brainstorm data visualization layouts and key elements to
+                                display.</p>
+                            <img src="../assets/pbi-1/pbi-1-design-thinking-3.svg" class="img-fluid rounded-3 shadow-sm"
+                                alt="Ideate Stage">
+                        </div>
+
+                        <!-- Step 4 & 5 -->
+                        <div class="mb-4">
+                            <h4 class="fw-bold mb-2">Step 4. Prototype & Step 5. Test</h4>
+                            <p class="text-muted mb-0">Continuously prototype and test.</p>
+                        </div>
+                    </div>
+
+                    <!-- Data Preparation & Modeling -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="data-preparation">Data Preparation & Modeling</h2>
+
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">1. Data Transform with Power Query</h4>
+                            <p class="text-muted mb-3">Since the raw dataset was relatively clean, my primary focus
+                                during the ETL process was not deep cleaning, but rather shaping the data architecture.
+                                Key transformations included:</p>
+                            <ul class="text-muted mb-0">
+                                <li class="mb-2">Deconstructing the main flat file into a structured schema with a
+                                    central <code>Fact_Order</code> table and distinct Dimension tables.</li>
+                                <li class="mb-2">Merging related queries to reduce redundancy and improve data
+                                    integrity.</li>
+                                <li>Generating a dedicated <strong>Dim_Date</strong> table to enable comprehensive
+                                    time-intelligence analysis.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-4">
+                            <h4 class="fw-bold mb-2">2. Building the Data Model</h4>
+                            <p class="text-muted mb-3">I implemented a robust <strong>Star Schema</strong>. The central
+                                Fact table (<code>Fact_Order</code>) records transactional data, and it is linked via
+                                one-to-many relationships to multiple Dimension tables (such as <code>Dim_People</code>,
+                                <code>Dim_Return</code>, <code>Dim_Customer</code>, <code>Dim_Product</code>,
+                                <code>Dim_Region</code>, and <code>Dim_Date</code>). This optimized architecture ensures
+                                efficient filtering and high real-time performance on the dashboard.
+                            </p>
+                            <img src="../assets/pbi-1/pbi-1-data-model.png" class="img-fluid rounded-3 shadow-sm border"
+                                alt="Power BI Data Model">
+                        </div>
+
+                        <div class="alert alert-secondary border-0 mt-4 shadow-sm" role="alert">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-github fs-4 me-3 text-dark"></i>
+                                <span class="text-dark">For more details about the dataset, Power Query M-Code, and Data
+                                    Model, please check the <a
+                                        href="https://github.com/hdangnguyen/power-bi-sales-dashboard" target="_blank"
+                                        class="text-decoration-none fw-bold text-primary hover-primary">source code on
+                                        GitHub</a>.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visualizations -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="visualizations">Visualizations</h2>
+
+                        <!-- Dashboard Usage Instructions -->
+                        <div class="card border-0 bg-light rounded-3 mb-5">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3"><i class="bi bi-info-circle-fill text-primary me-2"></i>How to
+                                    Use This Dashboard</h5>
+                                <ul class="mb-0 text-muted">
+                                    <li class="mb-2"><strong>Optimal Viewing:</strong> Click the <strong>Fit to
+                                            page</strong> <i class="bi bi-aspect-ratio px-1"></i> icon or the
+                                        <strong>Full screen</strong> <i class="bi bi-arrows-fullscreen px-1"></i> arrows
+                                        at the bottom right corner of the dashboard for the best experience.
+                                    </li>
+                                    <li class="mb-2"><strong>Exploration:</strong> Navigate between the core pages
+                                        (<strong>Overview</strong>, <strong>Market</strong>, <strong>Product</strong>)
+                                        using the top buttons or bottom pagination to explore different analytical
+                                        perspectives.</li>
+                                    <li class="mb-2"><strong>Interaction:</strong> Use the side dropdowns to filter
+                                        data, toggle metric buttons to change chart views, click on any chart element to
+                                        cross-filter the entire page, and hover over data points to reveal detailed
+                                        tooltips.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Power BI Embed -->
+                        <figure class="mb-5">
+                            <div class="ratio border rounded-4 shadow-sm overflow-hidden"
+                                style="--bs-aspect-ratio: 81%;">
+                                <iframe title="PowerBI Project - Sales Dashboard"
+                                    src="https://app.powerbi.com/view?r=eyJrIjoiZDY3NzhkMGMtNjY4OC00ODU5LTg1OTktNmE0MzcwM2ZmMTllIiwidCI6Ijk3MWY1NzEwLTExOTAtNDdlYS04MTg4LTVmN2IwNWI5MzlkMiIsImMiOjEwfQ%3D%3D&language=en-US"
+                                    frameborder="0" allowFullScreen="true">
+                                </iframe>
+                            </div>
+                            <figcaption class="figure-caption text-center mt-3">Interactive Sales Dashboard - Feel free
+                                to explore filters!</figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="recommendations">Key Insights & Recommendations</h2>
+
+                        <!-- Insights with Images -->
+                        <h3 class="fw-bold mb-4 fs-4">Key Insights</h3>
+
+                        <div class="row mb-5 align-items-center">
+                            <div class="col-md-6 order-md-1 order-2">
+                                <h4 class="fw-bold fs-5 text-dark mb-2">1. Profit Margins are Dropping Despite Revenue
+                                    Growth</h4>
+                                <p class="text-muted">Although revenue and total profit have grown by over
+                                    <strong>20%</strong> for three consecutive years, the overall Profit Margin has
+                                    actually dropped by <strong>1.9%</strong>. This suggests that operating costs are
+                                    rising faster than sales, which could lead to tighter margins as we continue to
+                                    expand.
+                                </p>
+                            </div>
+                            <div class="col-md-6 order-md-2 order-1 mb-3 mb-md-0">
+                                <img src="../assets/pbi-1/pbi-1-insight-margin-drop.png"
+                                    class="img-fluid rounded-3 shadow-sm border w-100" alt="Profit Margin Trend">
+                            </div>
+                        </div>
+
+                        <div class="row mb-5 align-items-center">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <img src="../assets/pbi-1/pbi-1-insight-market-comparison.png"
+                                    class="img-fluid rounded-3 shadow-sm border w-100" alt="Market Comparison">
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="fw-bold fs-5 text-dark mb-2">2. Canada is a High-Potential Market</h4>
+                                <p class="text-muted">While the <code>EMEA</code> and <code>Africa</code> markets
+                                    generate similar sales (<strong>~$800K</strong>), Africa is twice as profitable.
+                                    More importantly, <code>Canada</code> stands out as a highly lucrative market. It
+                                    has shown steady growth for 4 consecutive years and boasts an exceptionally high
+                                    profit margin of <strong>~26%</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-5 align-items-center">
+                            <div class="col-md-6 order-md-1 order-2">
+                                <h4 class="fw-bold fs-5 text-dark mb-2">3. The Contrast in Product Profitability</h4>
+                                <p class="text-muted"><code>Office Supplies</code> deliver the best return on
+                                    investment, especially low-cost items like <code>Paper</code> which have a
+                                    <strong>24%</strong> profit margin. On the other hand, <code>Tables</code> (under
+                                    Furniture) are losing money with a <strong>-12.5%</strong> margin (as of 2014),
+                                    which drags the entire Furniture category's profitability down to just
+                                    <strong>7%</strong>.
+                                </p>
+                            </div>
+                            <div class="col-md-6 order-md-2 order-1 mb-3 mb-md-0">
+                                <img src="../assets/pbi-1/pbi-1-insight-product-paradox.png"
+                                    class="img-fluid rounded-3 shadow-sm border w-100"
+                                    alt="Product Profitability Comparison">
+                            </div>
+                        </div>
+
+                        <!-- Recommendations List -->
+                        <h3 class="fw-bold mb-4 mt-5 fs-4">Strategic Recommendations</h3>
+                        <div class="alert alert-light border-start border-primary border-4 shadow-sm" role="alert">
+                            <ul class="mb-0 text-dark" style="line-height: 1.8;">
+                                <li class="mb-3"><strong>Expand in Canada:</strong> Take advantage of Canada's strong
+                                    3-year performance and high margins. We can optimize shipping costs by using our
+                                    existing US logistics hubs near the border. Sales efforts should focus on the highly
+                                    profitable Corporate and Consumer segments.</li>
+                                <li class="mb-3"><strong>Push High-Margin Office Supplies:</strong> Allocate more
+                                    marketing and warehouse space to <code>Office Supplies</code>. These small products
+                                    have low production costs but offer much higher margins than bulky items,
+                                    effectively boosting overall profitability.</li>
+                                <li><strong>Re-evaluate the Furniture Strategy:</strong> Consider pausing or reducing
+                                    the sales of <code>Tables</code>. The high cost of shipping and storage combined
+                                    with negative margins is draining resources. Shifting this focus to high-yield
+                                    Office Supplies will quickly improve the bottom line.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Sidebar Info -->
+                <div class="col-lg-4">
+                    <div class="sidebar-sticky">
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Technologies</h5>
+                                <div>
+                                    <span class="tech-badge">Power BI</span>
+                                    <span class="tech-badge">DAX</span>
+                                    <span class="tech-badge">Data Modeling</span>
+                                    <span class="tech-badge">Data Visualization</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Source Code & Data</h5>
+                                <div class="d-grid gap-2">
+                                    <a href="https://github.com/hdangnguyen/power-bi-sales-dashboard" target="_blank"
+                                        class="btn btn-outline-dark btn-sm fw-bold">
+                                        <i class="bi bi-github me-2"></i>View on GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table of Contents Card -->
+                        <div class="card border-0 bg-white rounded-3 shadow mb-4 sticky-top" style="top: 6rem;">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Table of Contents</h5>
+                                <ul class="list-unstyled mb-0 small">
+                                    <li class="mb-2">
+                                        <a href="#executive-summary"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i
+                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Executive
+                                            Summary
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#business-challenge"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i
+                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Business
+                                            Challenge
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#my-approach"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>My
+                                            Approach
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#design-thinking"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i
+                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Design
+                                            Thinking
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#data-preparation"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Data
+                                            Preparation & Modeling
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#visualizations"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i
+                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Visualizations
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#recommendations"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Key
+                                            Insights & Recommendations
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto border-top">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-auto">
+                    <div class="small m-0 text-muted">Copyright &copy; Hai-Dang Nguyen 2026</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+</body>
+
+</html>
