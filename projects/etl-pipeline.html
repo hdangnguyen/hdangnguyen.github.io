@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Building an Omnichannel Data Pipeline for TechStore Vietnam" />
+    <meta name="author" content="Hai-Dang Nguyen" />
+    <title>Building an Omnichannel Data Pipeline for TechStore Vietnam - Portfolio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <style>
+        /* Custom styles for the case study page */
+        :root {
+            /* Reduced font sizes for smaller screens */
+            --bs-body-font-size: 0.95rem;
+            --h1-size: 2.5rem;
+            --h2-size: 1.75rem;
+            --h3-size: 1.25rem;
+        }
+
+        body {
+            font-size: var(--bs-body-font-size);
+            line-height: 1.6;
+        }
+
+        .case-study-hero {
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            color: white;
+            padding: 3rem 0;
+            /* Reduced padding */
+            margin-bottom: 2.5rem;
+        }
+
+        .case-study-hero h1 {
+            font-size: var(--h1-size);
+            font-weight: 700;
+        }
+
+        .case-study-section {
+            margin-bottom: 3.5rem;
+        }
+
+        /* Major Headings (Executive Summary, Key Insights) */
+        h2.section-heading {
+            font-size: var(--h2-size);
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Sub Headings (Business Challenge, Solution, etc.) */
+        h3.sub-heading {
+            font-size: var(--h3-size);
+            font-weight: 600;
+            color: #343a40;
+            /* Dark Grey */
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-card {
+            border-left: 4px solid #1e30f3;
+            background-color: #f8f9fa;
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        .tech-badge {
+            font-size: 0.85rem;
+            padding: 0.4em 0.8em;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            background-color: white;
+            color: #212529;
+        }
+
+        .viz-placeholder {
+            background-color: #e9ecef;
+            height: 300px;
+            /* reduced height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            border: 2px dashed #dee2e6;
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm sticky-top">
+            <div class="container px-5">
+                <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">Hai-Dang
+                        Nguyen</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item"><a class="nav-link" href="../resume.html">About Me</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
+                        <li class="nav-item" style="display:none"><a class="nav-link" href="../book.html">Book Read</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Case Study Hero Header-->
+        <header class="case-study-hero">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="col-lg-10 col-xl-9">
+                        <div class="text-center">
+                            <div
+                                class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide shadow-sm">
+                                Data Engineering & GCP</div>
+                            <h1 class="mb-3">Building an Omnichannel Retail Data Pipeline</h1>
+                            <p class="lead fw-normal text-white-50 mb-0 mx-auto"
+                                style="max-width: 800px; font-size: 1.1rem; line-height: 1.6;">I built an ETL pipeline
+                                to process 6M+ sales
+                                records for a fast-growing technology retail chain. Driven by a custom Python
+                                orchestrator, the
+                                system cleans raw data and calculates customer segments. The final Data Warehouse
+                                provides the
+                                analytics team with analysis-ready tables to analyze cashflow and user
+                                behavior.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container px-5">
+            <div class="row gx-5">
+                <!-- Left Column: Main Narrative -->
+                <div class="col-lg-8">
+
+                    <!-- Cover Photo -->
+                    <div class="mb-5 text-center mt-3">
+                        <div class="viz-placeholder h-100 p-5 mt-3">
+                            <img src="../assets/etl-pipeline-project/project_architecture.png"
+                                alt="Project Architecture" class="img-fluid rounded">
+                        </div>
+                    </div>
+
+                    <!-- Business Problem -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="business-challenge">Business Challenge</h2>
+                        <p>A fast-growing technology retail chain operates across multiple online and offline channels
+                            with various payment gateways. With over 6 million transaction records being generated, a
+                            lack of a centralized data pipeline made it difficult to get a holistic view of the
+                            business.</p>
+                        <ul>
+                            <li><strong>Data Integration:</strong> Different sources (online/offline transactions and
+                                payment gateways) stored and managed data independently.</li>
+                            <li><strong>Customer Journey:</strong> Tracking users seamlessly across multiple touchpoints
+                                and channels was an immense challenge for the analytics team.</li>
+                            <li><strong>Goal:</strong> Build an orchestrated ETL pipeline that integrates all sources
+                                into a centralized Data Lake/Warehouse model, ensuring the data is analysis-ready for
+                                downstream visualization tools or advanced SQL analytics.</li>
+                        </ul>
+                    </div>
+
+                    <!-- My Approach -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="my-approach">My Approach</h2>
+                        <p>Due to project constraints, my primary focus was establishing a solid and scalable data
+                            foundation. I designed an Extract, Transform, and Load (ETL) pipeline without the strict
+                            necessity of immediate BI front-end connections:</p>
+
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div>
+                                <strong>Extract (Google Cloud Storage):</strong> Raw data dumps from various sales
+                                channels and payment systems are initially ingested into Google Cloud Storage buckets.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div>
+                                <strong>Transform (Python):</strong> Using Python scripts, the raw data archives are
+                                decompressed, parsed, cleaned, and standardized to ensure data quality.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">3</span>
+                            <div>
+                                <strong>Load (Google BigQuery):</strong> The transformed data is subsequently loaded
+                                into Google BigQuery, where powerful SQL aggregate functions are utilized to create
+                                meaningful analytical views.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Architecture -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="design-thinking">System Architecture</h2>
+
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">High-level Architecture Design</h4>
+                            <p class="text-muted mb-3">[Mô tả luồng đi của dữ liệu từ Source qua các công cụ GCP cho đến
+                                Dashboard cuối cùng].</p>
+                            <div class="viz-placeholder h-100 p-5 mt-3">
+                                <h3>[Chèn ảnh Diagram Architecture]</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Preparation & ETL -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="data-preparation">Data Pipeline Implementation</h2>
+
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">1. Data Ingestion (GCS)</h4>
+                            <p class="text-muted mb-3">[Mô tả việc thu thập dữ liệu và đẩy lên Cloud Storage (GCS) như
+                                thế nào. Dùng Python script hay một tool nào đó?]</p>
+                        </div>
+
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">2. Data Transformation (BigQuery)</h4>
+                            <p class="text-muted mb-3">[Mô tả cách thức xử lý dữ liệu thô (raw data) bằng SQL/dbt để tạo
+                                ra các bảng phục vụ báo cáo].</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <h4 class="fw-bold mb-2">3. Advanced Aggregations (RFM & SCD Type 1)</h4>
+                            <p class="text-muted mb-3">To provide immediate business value, I automated the calculation
+                                of <strong>RFM (Recency, Frequency, Monetary)</strong> scores. The orchestrator triggers
+                                an advanced SQL <code>MERGE</code> statement in BigQuery that aggregates transaction
+                                history and updates the <code>dim_customer</code> table in place (an <strong>SCD Type
+                                    1</strong> approach). This automatically groups customers into segments like
+                                'Champions', 'Loyal', or 'At Risk' without needing a separate BI tool to run the
+                                calculations.</p>
+                        </div>
+
+                        <div class="alert alert-secondary border-0 mt-4 shadow-sm" role="alert">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-github fs-4 me-3 text-dark"></i>
+                                <span class="text-dark">Toàn bộ Git repo, Python scripts và SQL Queries có thể xem tại
+                                    <a href="#" target="_blank"
+                                        class="text-decoration-none fw-bold text-primary hover-primary">source code on
+                                        GitHub</a>.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard & Final Output -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="visualizations">Dashboard & Final Output</h2>
+
+                        <p>[Trình bày về sản phẩm cuối cùng: Dashboard Looker Studio/Power BI hoặc một tệp dữ liệu sạch.
+                            Nêu ra giá trị của hệ thống mang lại cho người dùng cuối (ví dụ: tự động hóa 100%, update
+                            realtime, phân quyền truy cập...)]</p>
+
+                        <!-- Final Output Placeholder -->
+                        <figure class="mb-5">
+                            <div class="viz-placeholder w-100 p-5 mt-3" style="height: 400px;">
+                                <h3>[Chèn ảnh chụp Dashboard hoặc Ảnh minh hoạ Data vào đây]</h3>
+                            </div>
+                            <figcaption class="figure-caption text-center mt-3">Final Output of the Data Pipeline
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Key Results & Future Work -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="recommendations">Key Results & Upcoming Improvements</h2>
+                        <p>[Đúc kết lại những tác động từ dự án này: Tiết kiệm bao nhiêu thời gian? Nâng cao chất lượng
+                            Data ra sao? Và hướng phát triển tiếp theo của Pipeline này là gì?]</p>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Sidebar Info -->
+                <div class="col-lg-4">
+                    <div class="sidebar-sticky">
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Technologies</h5>
+                                <div>
+                                    <span class="tech-badge">GCP</span>
+                                    <span class="tech-badge">Python</span>
+                                    <span class="tech-badge">ETL</span>
+                                    <span class="tech-badge">Airflow/Prefect</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Source Code & Data</h5>
+                                <div class="d-grid gap-2">
+                                    <a href="#" target="_blank" class="btn btn-outline-dark btn-sm fw-bold">
+                                        <i class="bi bi-github me-2"></i>View on GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table of Contents Card -->
+                        <div class="card border-0 bg-white rounded-3 shadow mb-4 sticky-top" style="top: 6rem;">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Table of Contents</h5>
+                                <ul class="list-unstyled mb-0 small">
+                                    <li class="mb-2">
+                                        <a href="#business-challenge"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i
+                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Business
+                                            Challenge
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#my-approach"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>My
+                                            Approach
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#design-thinking"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i
+                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>System
+                                            Architecture
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#data-preparation"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Data
+                                            Pipeline Implementation
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#visualizations"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i
+                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Dashboard
+                                            & Final Output
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#recommendations"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Key
+                                            Results & Upcoming Improvements
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto border-top">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-auto">
+                    <div class="small m-0 text-muted">Copyright &copy; Hai-Dang Nguyen 2026</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+</body>
+
+</html>
