@@ -55,7 +55,12 @@
                         <div class="card overflow-hidden shadow rounded-4 border-0 h-100">
                             <div class="card-body p-0 d-flex flex-column">
                                 <div class="p-4 flex-grow-1">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Google Cloud Platform
+                                    <div class="mb-2">
+                                        <span class="badge bg-primary bg-gradient rounded-pill me-1">Python</span>
+                                        <span class="badge bg-primary bg-gradient rounded-pill me-1">Google
+                                            BigQuery</span>
+                                        <span class="badge bg-primary bg-gradient rounded-pill">Google Cloud
+                                            Platform</span>
                                     </div>
                                     <h2 class="fw-bolder h4">Building an Omnichannel Retail Data Pipeline</h2>
                                     <p class="mb-3 text-muted small">Using Google Cloud Storage, Python, and BigQuery, I
@@ -73,8 +78,9 @@
                                         href="projects/etl-pipeline.html">View Case Study <i
                                             class="bi bi-arrow-right"></i></a>
                                 </div>
-                                <img class="img-fluid" src="https://dummyimage.com/600x300/343a40/6c757d" alt="..."
-                                    style="height: 200px; object-fit: cover;" />
+                                <img class="img-fluid" src="assets/etl-pipeline-project/project-architecture.png"
+                                    alt="ETL Pipeline Architecture Diagram"
+                                    style="height: 220px; object-fit: contain; background:#f8f9fa; padding: 1rem;" />
                             </div>
                         </div>
                     </div>
@@ -113,17 +119,49 @@
                                 <div class="p-4 flex-grow-1">
                                     <div class="badge bg-primary bg-gradient rounded-pill mb-2">SQL</div>
                                     <h2 class="fw-bolder h4">Bicycle Manufacturer Performance Analysis</h2>
-                                    <p class="mb-3 text-muted small">An Advanced SQL project transforming raw
-                                        manufacturing data into a structured reporting framework. The database queries
-                                        uncover critical insights regarding sales performance, customer retention, and
-                                        inventory optimization.</p>
+                                    <p class="mb-3 text-muted small">An Advanced SQL project utilizing <strong>Google
+                                            BigQuery</strong> to analyze the complex <strong>AdventureWorks
+                                            Database</strong>. The analysis leverages Window Functions and CTEs to solve
+                                        critical operational problems, specifically pinpointing customer churn via
+                                        <strong>Cohort Retention</strong> and identifying dead capital through
+                                        <strong>Inventory Optimization</strong> models.
+                                    </p>
                                     <div class="mb-3">
-                                        <span class="badge bg-light text-dark border">Sales Analysis</span>
+                                        <span class="badge bg-light text-dark border">BigQuery SQL</span>
                                         <span class="badge bg-light text-dark border">Cohort Retention</span>
                                         <span class="badge bg-light text-dark border">Inventory Optimization</span>
                                     </div>
                                     <a class="text-decoration-none fw-bold stretched-link"
-                                        href="projects/retail-inventory-optimization.html">View Case Study <i
+                                        href="projects/bicycle-performance-analysis.html">View Case Study <i
+                                            class="bi bi-arrow-right"></i></a>
+                                </div>
+                                <img class="img-fluid" src="assets/sql_bicycle/bicycle-cover-image.webp"
+                                    alt="Bicycle Manufacturer Analysis Cover"
+                                    style="height: 200px; object-fit: cover; object-position: center;" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Google Analytics Session Analysis -->
+                    <div class="col-lg-6 mb-5">
+                        <div class="card overflow-hidden shadow rounded-4 border-0 h-100">
+                            <div class="card-body p-0 d-flex flex-column">
+                                <div class="p-4 flex-grow-1">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">SQL</div>
+                                    <h2 class="fw-bolder h4">Unlocking User Behavior: Google Analytics Session
+                                        Analysis</h2>
+                                    <p class="mb-3 text-muted small">An Advanced SQL project querying Google's public
+                                        GA sessions dataset on BigQuery to uncover e-commerce conversion patterns.
+                                        Analyzes the full purchase funnel (View → Cart → Buy) and contrasts browsing
+                                        depth between buyers and non-buyers to pinpoint where revenue is being lost.
+                                    </p>
+                                    <div class="mb-3">
+                                        <span class="badge bg-light text-dark border">Funnel Analysis</span>
+                                        <span class="badge bg-light text-dark border">User Segmentation</span>
+                                        <span class="badge bg-light text-dark border">BigQuery</span>
+                                    </div>
+                                    <a class="text-decoration-none fw-bold stretched-link"
+                                        href="projects/ga-session-analysis.html">View Case Study <i
                                             class="bi bi-arrow-right"></i></a>
                                 </div>
                                 <img class="img-fluid" src="https://dummyimage.com/600x300/343a40/6c757d" alt="..."
@@ -132,7 +170,7 @@
                         </div>
                     </div>
 
-                    <!-- 4. E-Wallet Product & Transactional Analysis -->
+                    <!-- 5. E-Wallet Product & Transactional Analysis -->
                     <div class="col-lg-6 mb-5">
                         <div class="card overflow-hidden shadow rounded-4 border-0 h-100">
                             <div class="card-body p-0 d-flex flex-column">
@@ -158,28 +196,7 @@
                         </div>
                     </div>
 
-                    <!-- 5. Competitor Price Tracker -->
-                    <div class="col-lg-6 mb-5">
-                        <div class="card overflow-hidden shadow rounded-4 border-0 h-100">
-                            <div class="card-body p-0 d-flex flex-column">
-                                <div class="p-4 flex-grow-1">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Python</div>
-                                    <h2 class="fw-bolder h4">Competitor Price Tracker</h2>
-                                    <p class="mb-3 text-muted small">Automated script to scrape competitor pricing
-                                        daily, storing data in PostgreSQL for trend analysis.</p>
-                                    <div class="mb-3">
-                                        <span class="badge bg-light text-dark border">Web Scraping</span>
-                                        <span class="badge bg-light text-dark border">Data Automation</span>
-                                        <span class="badge bg-light text-dark border">Trend Analysis</span>
-                                    </div>
-                                    <a class="text-decoration-none fw-bold stretched-link" href="#!">Coming Soon <i
-                                            class="bi bi-arrow-right"></i></a>
-                                </div>
-                                <img class="img-fluid" src="https://dummyimage.com/600x300/343a40/6c757d" alt="..."
-                                    style="height: 200px; object-fit: cover;" />
-                            </div>
-                        </div>
-                    </div>
+
 
                 </div>
             </div>

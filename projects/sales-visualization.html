@@ -21,86 +21,70 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../css/styles.css" rel="stylesheet" />
     <style>
-        /* Custom styles for the case study page */
         :root {
-            /* Reduced font sizes for smaller screens */
+            --brand-blue: #1e30f3;
+            --brand-pink: #e21e80;
             --bs-body-font-size: 0.95rem;
-            --h1-size: 2.5rem;
-            --h2-size: 1.75rem;
-            --h3-size: 1.25rem;
         }
 
         body {
             font-size: var(--bs-body-font-size);
-            line-height: 1.6;
+            line-height: 1.7;
+            color: #343a40;
         }
 
         .case-study-hero {
             background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
             color: white;
-            padding: 3rem 0;
-            /* Reduced padding */
+            padding: 3.5rem 0 3rem;
             margin-bottom: 2.5rem;
         }
 
         .case-study-hero h1 {
-            font-size: var(--h1-size);
-            font-weight: 700;
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.25;
         }
 
         .case-study-section {
             margin-bottom: 3.5rem;
         }
 
-        /* Major Headings (Executive Summary, Key Insights) */
         h2.section-heading {
-            font-size: var(--h2-size);
+            font-size: 1.6rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-pink) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             border-bottom: 2px solid #e9ecef;
             padding-bottom: 0.5rem;
             display: inline-block;
         }
 
-        /* Sub Headings (Business Challenge, Solution, etc.) */
-        h3.sub-heading {
-            font-size: var(--h3-size);
-            font-weight: 600;
-            color: #343a40;
-            /* Dark Grey */
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
         .metric-card {
-            border-left: 4px solid #1e30f3;
+            border-left: 4px solid var(--brand-blue);
             background-color: #f8f9fa;
             padding: 1.25rem;
             height: 100%;
         }
 
         .tech-badge {
-            font-size: 0.85rem;
-            padding: 0.4em 0.8em;
+            font-size: 0.82rem;
+            padding: 0.35em 0.8em;
             margin-right: 0.4rem;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             display: inline-block;
             border: 1px solid #dee2e6;
             border-radius: 20px;
-            background-color: white;
+            background-color: #fff;
             color: #212529;
         }
 
         .viz-placeholder {
             background-color: #e9ecef;
             height: 300px;
-            /* reduced height */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -110,9 +94,144 @@
             border: 2px dashed #dee2e6;
         }
 
+        /* Sidebar */
         .sidebar-sticky {
             position: sticky;
-            top: 2rem;
+            top: 5.5rem;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.35rem 0;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+            transition: all 0.15s;
+        }
+
+        .toc-link:hover {
+            color: var(--brand-blue);
+            border-left-color: var(--brand-blue);
+            padding-left: 1rem;
+        }
+
+        /* Diagram images */
+        .diagram-wrap {
+            border: 1px solid #e9ecef;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .diagram-wrap img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+        }
+
+        .diagram-caption {
+            font-size: 0.82rem;
+            color: #6c757d;
+            margin-top: 0.6rem;
+            font-style: italic;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: lbFadeIn 0.2s ease;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-overlay img {
+            max-width: 92vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 0.75rem;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+            animation: lbZoomIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: zoom-out;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.15s, transform 0.15s;
+            z-index: 10000;
+            background: none;
+            border: none;
+        }
+
+        .lightbox-close:hover {
+            color: #fff;
+            transform: scale(1.15);
+        }
+
+        .lightbox-caption {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.82rem;
+            font-style: italic;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        @keyframes lbFadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes lbZoomIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        /* Clickable images */
+        .img-lightbox,
+        .diagram-wrap img {
+            cursor: zoom-in;
+            transition: opacity 0.15s;
+        }
+
+        .img-lightbox:hover,
+        .diagram-wrap img:hover {
+            opacity: 0.88;
         }
     </style>
 </head>
@@ -143,18 +262,28 @@
         <header class="case-study-hero">
             <div class="container px-5">
                 <div class="row gx-5 align-items-center justify-content-center">
-                    <div class="col-lg-10 col-xl-9">
-                        <div class="text-center">
-                            <div
-                                class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide shadow-sm">
-                                Power BI</div>
-                            <h1 class="mb-3">Where to Expand Next? A Global Retail Sales Analysis</h1>
-                            <p class="lead fw-normal text-white-50 mb-0 mx-auto"
-                                style="max-width: 800px; font-size: 1.1rem; line-height: 1.6;">Using Power Query and
-                                Power BI, I transformed over 51,000 sales records for a global retail company into an
-                                interactive dashboard. The final product helps senior management identify high-potential
-                                markets, like Canada, and prioritize profitable product categories to drive their
-                                expansion strategy.</p>
+                    <div class="col-lg-10 col-xl-9 text-center">
+                        <div class="mb-3">
+                            <span class="badge bg-primary bg-gradient rounded-pill">Power BI</span>
+                        </div>
+                        <h1 class="mb-3">Where to Expand Next? A Global Retail Sales Analysis</h1>
+                        <p class="lead fw-normal text-white-50 mb-3 mx-auto"
+                            style="max-width: 750px; font-size: 1rem; line-height: 1.6;">Using Power Query and
+                            Power BI, I transformed over 51,000 sales records for a global retail company into an
+                            interactive dashboard. The final product helps senior management identify high-potential
+                            markets, like Canada, and prioritize profitable product categories to drive their
+                            expansion strategy.</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-2" style="opacity:0.8">
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Sales Analytics</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Market Expansion</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">DAX</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Star Schema</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Design Thinking</span>
                         </div>
                     </div>
                 </div>
@@ -175,7 +304,7 @@
 
                     <!-- Business Problem -->
                     <div class="case-study-section">
-                        <h2 class="section-heading" id="business-challenge">Business Challenge</h2>
+                        <h2 class="section-heading" id="business-challenge">01. Business Challenge</h2>
                         <p>To support Superstore's ambitious growth and market expansion goals, senior management needed
                             actionable insights into their global operations. In its current state, the company lacked a
                             unified view of its fragmented international data. The primary objective of this project was
@@ -192,7 +321,7 @@
 
                     <!-- My Approach -->
                     <div class="case-study-section">
-                        <h2 class="section-heading" id="my-approach">My Approach</h2>
+                        <h2 class="section-heading" id="my-approach">02. My Approach</h2>
                         <p>To build a practical and effective dashboard, I applied principles from Stanford's Design
                             Thinking process, walking through the problem from the perspective of a business manager:
                         </p>
@@ -225,7 +354,7 @@
 
                     <!-- Design Thinking -->
                     <div class="case-study-section">
-                        <h2 class="section-heading" id="design-thinking">Design Thinking</h2>
+                        <h2 class="section-heading" id="design-thinking">03. Design Thinking</h2>
 
                         <!-- Step 1 -->
                         <div class="mb-5">
@@ -267,7 +396,7 @@
 
                     <!-- Data Preparation & Modeling -->
                     <div class="case-study-section">
-                        <h2 class="section-heading" id="data-preparation">Data Preparation & Modeling</h2>
+                        <h2 class="section-heading" id="data-preparation">04. Data Preparation &amp; Modeling</h2>
 
                         <div class="mb-5">
                             <h4 class="fw-bold mb-2">1. Data Transform with Power Query</h4>
@@ -311,7 +440,7 @@
 
                     <!-- Visualizations -->
                     <div class="case-study-section">
-                        <h2 class="section-heading" id="visualizations">Visualizations</h2>
+                        <h2 class="section-heading" id="visualizations">05. Visualizations</h2>
 
                         <!-- Dashboard Usage Instructions -->
                         <div class="card border-0 bg-light rounded-3 mb-5">
@@ -352,7 +481,7 @@
 
                     <!-- Recommendations -->
                     <div class="case-study-section">
-                        <h2 class="section-heading" id="recommendations">Key Insights & Recommendations</h2>
+                        <h2 class="section-heading" id="recommendations">06. Key Insights &amp; Recommendations</h2>
 
                         <!-- Insights with Images -->
                         <h3 class="fw-bold mb-4 fs-4">Key Insights</h3>
@@ -429,83 +558,41 @@
 
                 </div>
 
-                <!-- Right Column: Sidebar Info -->
+                <!-- Right Column: Sidebar -->
                 <div class="col-lg-4">
                     <div class="sidebar-sticky">
-                        <div class="card border-0 shadow-sm rounded-3 mb-4">
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Technologies</h5>
-                                <div>
-                                    <span class="tech-badge">Power BI</span>
-                                    <span class="tech-badge">DAX</span>
-                                    <span class="tech-badge">Data Modeling</span>
-                                    <span class="tech-badge">Data Visualization</span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                        <!-- GitHub card (top, highlighted) -->
+                        <div class="card border-0 rounded-3 mb-4"
+                            style="background:linear-gradient(135deg,rgba(30,48,243,0.05) 0%,rgba(226,30,128,0.05) 100%);border:1px solid rgba(30,48,243,0.12) !important">
                             <div class="card-body p-4">
-                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Source Code & Data</h5>
-                                <div class="d-grid gap-2">
+                                <h5 class="fw-bold mb-1 fs-6 text-uppercase" style="color:var(--brand-blue)">Source Code
+                                    &amp; Data</h5>
+                                <p class="text-muted mb-3" style="font-size:0.78rem;line-height:1.5">For the dataset,
+                                    `pbix` files, and full Data Model, visit the GitHub repository below.</p>
+                                <div class="d-grid">
                                     <a href="https://github.com/hdangnguyen/power-bi-sales-dashboard" target="_blank"
-                                        class="btn btn-outline-dark btn-sm fw-bold">
+                                        class="btn btn-sm fw-bold"
+                                        style="background:linear-gradient(135deg,var(--brand-blue),var(--brand-pink));color:white;border:none">
                                         <i class="bi bi-github me-2"></i>View on GitHub
                                     </a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Table of Contents Card -->
-                        <div class="card border-0 bg-white rounded-3 shadow mb-4 sticky-top" style="top: 6rem;">
+                        <!-- Table of Contents -->
+                        <div class="card border-0 bg-white rounded-3 shadow-sm mb-4">
                             <div class="card-body p-4">
                                 <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Table of Contents</h5>
-                                <ul class="list-unstyled mb-0 small">
-                                    <li class="mb-2">
-                                        <a href="#business-challenge"
-                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
-                                            <i
-                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Business
-                                            Challenge
-                                        </a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a href="#my-approach"
-                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
-                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>My
-                                            Approach
-                                        </a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a href="#design-thinking"
-                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
-                                            <i
-                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Design
-                                            Thinking
-                                        </a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a href="#data-preparation"
-                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
-                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Data
-                                            Preparation & Modeling
-                                        </a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a href="#visualizations"
-                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
-                                            <i
-                                                class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Visualizations
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#recommendations"
-                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
-                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Key
-                                            Insights & Recommendations
-                                        </a>
-                                    </li>
-                                </ul>
+                                <nav>
+                                    <a class="toc-link" href="#business-challenge">01. Business Challenge</a>
+                                    <a class="toc-link" href="#my-approach">02. My Approach</a>
+                                    <a class="toc-link" href="#design-thinking">03. Design Thinking</a>
+                                    <a class="toc-link" href="#data-preparation">04. Data Preparation &amp; Modeling</a>
+                                    <a class="toc-link" href="#visualizations">05. Visualizations</a>
+                                    <a class="toc-link" href="#recommendations">06. Key Insights &amp;
+                                        Recommendations</a>
+                                </nav>
                             </div>
                         </div>
 
@@ -525,10 +612,54 @@
             </div>
         </div>
     </footer>
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+        <img src="" alt="" id="lightbox-img" />
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="../js/scripts.js"></script>
+
+    <script>
+        (function () {
+            const overlay = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            const lbCaption = document.getElementById('lightbox-caption');
+            const lbClose = document.getElementById('lightbox-close');
+
+            function openLightbox(src, alt, caption) {
+                lbImg.src = src;
+                lbImg.alt = alt;
+                lbCaption.textContent = caption || '';
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(() => { lbImg.src = ''; }, 250);
+            }
+
+            document.querySelectorAll('.img-lightbox, .diagram-wrap img').forEach(function (img) {
+                img.addEventListener('click', function () {
+                    openLightbox(img.src, img.alt, img.dataset.caption || img.alt || '');
+                });
+            });
+
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay || e.target === lbImg) closeLightbox();
+            });
+            lbClose.addEventListener('click', closeLightbox);
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        })();
+    </script>
 </body>
 
 </html>

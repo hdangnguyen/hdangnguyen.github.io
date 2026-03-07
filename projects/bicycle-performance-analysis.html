@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description"
+        content="Bicycle Manufacturer Performance Analysis — Advanced SQL case studies on Customer Cohort Retention and Inventory Optimization using the AdventureWorks dataset." />
+    <meta name="author" content="Hai-Dang Nguyen" />
+    <title>Bicycle Manufacturer Performance Analysis - Hai-Dang Nguyen Portfolio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <style>
+        :root {
+            --brand-blue: #1e30f3;
+            --brand-pink: #e21e80;
+            --bs-body-font-size: 0.95rem;
+        }
+
+        body {
+            font-size: var(--bs-body-font-size);
+            line-height: 1.7;
+            color: #343a40;
+        }
+
+        .case-study-hero {
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            color: white;
+            padding: 3.5rem 0 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .case-study-hero h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        .case-study-section {
+            margin-bottom: 3.5rem;
+        }
+
+        h2.section-heading {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        h3.sub-heading {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #6c757d;
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-card {
+            border-left: 4px solid var(--brand-blue);
+            background-color: #f8f9fa;
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        .tech-badge {
+            font-size: 0.82rem;
+            padding: 0.35em 0.8em;
+            margin-right: 0.4rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            background-color: #fff;
+            color: #212529;
+        }
+
+        /* Code block */
+        .code-snippet-container {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-header {
+            background-color: #e9ecef;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1rem;
+            font-size: 0.82rem;
+            color: #212529;
+        }
+
+        /* Result table */
+        .result-table-wrap {
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .result-table-wrap table {
+            margin: 0;
+            font-size: 0.82rem;
+        }
+
+        .result-table-wrap thead {
+            background: linear-gradient(135deg, rgba(30, 48, 243, 0.08), rgba(226, 30, 128, 0.08));
+            font-weight: 700;
+        }
+
+        /* Diagram images */
+        .diagram-wrap {
+            border: 1px solid #e9ecef;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .diagram-wrap img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+        }
+
+        .diagram-caption {
+            font-size: 0.82rem;
+            color: #6c757d;
+            margin-top: 0.6rem;
+            font-style: italic;
+        }
+
+        /* Sidebar */
+        .sidebar-sticky {
+            position: sticky;
+            top: 5.5rem;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.35rem 0;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+            transition: all 0.15s;
+        }
+
+        .toc-link:hover {
+            color: var(--brand-blue);
+            border-left-color: var(--brand-blue);
+            padding-left: 1rem;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: lbFadeIn 0.2s ease;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-overlay img {
+            max-width: 92vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 0.75rem;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+            animation: lbZoomIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: zoom-out;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.15s, transform 0.15s;
+            z-index: 10000;
+            background: none;
+            border: none;
+        }
+
+        .lightbox-close:hover {
+            color: #fff;
+            transform: scale(1.15);
+        }
+
+        .lightbox-caption {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.82rem;
+            font-style: italic;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        @keyframes lbFadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes lbZoomIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        .img-lightbox,
+        .diagram-wrap img {
+            cursor: zoom-in;
+            transition: opacity 0.15s;
+        }
+
+        .img-lightbox:hover,
+        .diagram-wrap img:hover {
+            opacity: 0.88;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm sticky-top">
+            <div class="container px-5">
+                <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">Hai-Dang
+                        Nguyen</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item"><a class="nav-link" href="../resume.html">About Me</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
+                        <li class="nav-item" style="display:none"><a class="nav-link" href="../book.html">Book Read</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <header class="case-study-hero">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="col-lg-10 col-xl-9 text-center">
+                        <div class="mb-3">
+                            <span class="badge bg-primary bg-gradient rounded-pill me-1">SQL</span>
+                            <span class="badge bg-primary bg-gradient rounded-pill">Google BigQuery</span>
+                        </div>
+                        <h1 class="mb-3">Bicycle Manufacturer Performance Analysis</h1>
+                        <p class="lead fw-normal text-white-50 mb-3 mx-auto"
+                            style="max-width:750px;font-size:1rem;line-height:1.6;">An Advanced SQL project using the
+                            AdventureWorks dataset to perform comprehensive data analysis across Sales Performance,
+                            Customer Retention, and Inventory Optimization through 8 complex operational queries.</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-2" style="opacity:0.8">
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Cohort Analysis</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Window Functions</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">CTE</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Inventory
+                                Optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container px-5 mb-5">
+            <div class="row gx-5">
+                <!-- Left Column -->
+                <div class="col-lg-8">
+
+                    <!-- Cover image -->
+                    <div class="mb-4 mt-2">
+                        <div class="diagram-wrap" style="padding:0;overflow:hidden;">
+                            <img src="../assets/sql_bicycle/bicycle-cover-image.webp"
+                                alt="Bicycle Manufacturer Analysis Cover Image"
+                                style="width:100%;height:auto;border-radius:0.5rem;" />
+                        </div>
+                    </div>
+
+                    <!-- ─── Project Overview ─── -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="project-overview">Project Overview</h2>
+                        <p>In this project, I performed an end-to-end data analysis on the <strong>AdventureWorks
+                                database</strong>, a comprehensive dataset simulating a large multinational
+                            manufacturing company. The business operates across multiple international regions, managing
+                            thousands of products, salespeople, and complex supply chain records.</p>
+                        <p>The primary objective of this project is to demonstrate advanced SQL capabilities in solving
+                            complex business problems. Through the execution of 8 operational queries, I explore various
+                            business domains, focusing heavily on <strong>Sales Performance, Customer Retention, and
+                                Inventory Optimization</strong>. This page highlights two of the most critical deep-dive
+                            case studies from that analysis.</p>
+                    </div>
+
+                    <!-- ─── Case Study 1 ─── -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="case-study-1">Case Study 1: Customer Retention Strategy (Cohort
+                            Analysis)</h2>
+
+                        <h3 class="sub-heading">The Business Challenge</h3>
+                        <p>The marketing department faced rising Customer Acquisition Costs (CAC) but had no visibility
+                            into user lifecycle behavior. The key objective was to identify the exact <strong>"churn
+                                point"</strong> — the moment customers stop coming back — in order to shift budget from
+                            acquisition to targeted retention.</p>
+
+                        <h3 class="sub-heading">My Approach</h3>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div><strong>Data Partitioning:</strong> Used <code>ROW_NUMBER() OVER (PARTITION BY
+                                    customer_id ORDER BY order_month)</code> to identify each customer's first-ever
+                                order, forming the cohort baseline.</div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div><strong>Month Difference Calculation:</strong> Built a 4-layer CTE to calculate
+                                <code>month_diff</code> between each subsequent order and the cohort's join month,
+                                enabling period-over-period retention tracking.
+                            </div>
+                        </div>
+
+                        <h3 class="sub-heading">Solution</h3>
+                        <div class="code-snippet-container shadow-sm">
+                            <div class="code-header">
+                                <span><i class="bi bi-code-slash me-2"></i>q5_retention_rate_cohort.sql</span>
+                                <span class="badge bg-light text-dark border">BigQuery SQL</span>
+                            </div>
+                            <div id="sql-container-cs1"
+                                style="max-height:200px;overflow:hidden;transition:max-height 0.5s ease;position:relative;">
+                                <pre class="mb-0"><code>WITH successful_order AS (
+    SELECT
+      EXTRACT(MONTH FROM ModifiedDate) order_month,
+      CustomerID customer_id
+    FROM `adventureworks2019.Sales.SalesOrderHeader`
+    WHERE EXTRACT(YEAR FROM ModifiedDate) = 2014 AND Status = 5
+    ORDER BY customer_id, order_month
+),
+rank_time_order AS (
+    SELECT *,
+      ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY order_month) order_time
+    FROM successful_order
+),
+first_order AS (
+    SELECT order_month AS month_join, customer_id
+    FROM rank_time_order WHERE order_time = 1
+),
+find_month_diff AS (
+    SELECT DISTINCT order_month, month_join, a.customer_id,
+      (order_month - month_join) month_diff_num
+    FROM successful_order a
+    INNER JOIN first_order b ON a.customer_id = b.customer_id
+    ORDER BY month_join, order_month
+)
+SELECT
+  month_join,
+  CONCAT('M-', month_diff_num) month_diff,
+  COUNT(customer_id) customer_count
+FROM find_month_diff
+GROUP BY month_join, CONCAT('M-', month_diff_num)
+ORDER BY month_join, month_diff</code></pre>
+                                <div id="sql-fade-cs1"
+                                    style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,#f8f9fa);">
+                                </div>
+                            </div>
+                            <div class="text-center p-2 bg-light border-top">
+                                <button id="btn-toggle-cs1"
+                                    class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-4"
+                                    onclick="toggleSQL('cs1')">
+                                    See More <i class="bi bi-chevron-down ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <h3 class="sub-heading">Results</h3>
+                        <p>The query output is a cohort matrix — each row is a join month, each column is
+                            <code>M-0</code> through <code>M-5</code>, and the value is the number of customers still
+                            active at that period. A sample of the output:
+                        </p>
+                        <div class="result-table-wrap shadow-sm mb-3">
+                            <table class="table table-sm table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>month_join</th>
+                                        <th>M-0</th>
+                                        <th>M-1</th>
+                                        <th>M-2</th>
+                                        <th>M-3</th>
+                                        <th>M-4</th>
+                                        <th>M-5</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-muted">
+                                    <tr>
+                                        <td>1 (Jan)</td>
+                                        <td>388</td>
+                                        <td>15</td>
+                                        <td>10</td>
+                                        <td>46</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2 (Feb)</td>
+                                        <td>338</td>
+                                        <td>15</td>
+                                        <td>41</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3 (Mar)</td>
+                                        <td>414</td>
+                                        <td>16</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4 (Apr)</td>
+                                        <td>390</td>
+                                        <td>14</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5 (May)</td>
+                                        <td>544</td>
+                                        <td>6</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6 (Jun)</td>
+                                        <td>478</td>
+                                        <td>5</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="sub-heading">Key Insights</h3>
+                        <ul>
+                            <li class="mb-2"><strong>The "One-and-Done" Problem:</strong> Across all cohorts,
+                                <strong>&lt; 5%</strong> of customers return for a second purchase (M-1). Retention
+                                quality drops from <strong>3.8%</strong> (Jan) to <strong>1.1%</strong> (Jun).
+                            </li>
+                            <li class="mb-2"><strong>The "90-Day Resurrection" Pattern:</strong> Customers acquired in
+                                Jan/Feb showed a <strong>300% spike in activity at Month 3</strong> (12–13%), indicating
+                                strong quarterly cyclical demand from this segment.</li>
+                        </ul>
+
+                        <div class="diagram-wrap mt-3 mb-1">
+                            <img src="../assets/sql_bicycle/cohort.png" alt="Cohort Retention Heatmap"
+                                data-caption="Figure 1 — Cohort retention heatmap: retention drops sharply after M-0 across all cohorts, with a notable M-3 resurgence." />
+                        </div>
+                        <p class="diagram-caption text-center">Figure 1 — Cohort retention heatmap showing sharp drop
+                            after M-0, with a notable ~3x resurgence at M-3 for Jan/Feb cohorts.</p>
+                    </div>
+                    <!-- End Case Study 1 -->
+
+                    <!-- ─── Case Study 2 ─── -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="case-study-2">Case Study 2: Inventory Optimization Strategy</h2>
+
+                        <h3 class="sub-heading">The Business Challenges</h3>
+                        <ul>
+                            <li class="mb-2"><strong>Rising Warehousing Costs:</strong> Increasing storage fees from
+                                stagnant inventory in specific product lines.</li>
+                            <li class="mb-2"><strong>Lost Revenue:</strong> Despite high overall stock, popular items
+                                frequently experienced stockouts — leading to missed sales.</li>
+                            <li class="mb-2"><strong>Lack of Visibility:</strong> The supply chain team relied on static
+                                inventory counts, failing to account for real-time sales velocity.</li>
+                        </ul>
+
+                        <h3 class="sub-heading">My Approach</h3>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div><strong>Aggregate Demand (Sales):</strong> Calculated the total sales quantity per
+                                product per month by joining <code>SalesOrderDetail</code> and
+                                <code>SalesOrderHeader</code>.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div>
+                                <strong>Aggregate Supply (Stock):</strong> Calculated the total stocked quantity per
+                                product per month from <code>WorkOrder</code> records.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">3</span>
+                            <div>
+                                <strong>Stock-to-Sales Ratio:</strong> Joined the two aggregated datasets to calculate
+                                the ratio of Stock over Sales. High ratios indicate products being heavily overstocked
+                                relative to their sales velocity.
+                            </div>
+                        </div>
+
+                        <h3 class="sub-heading">Solution</h3>
+                        <div class="code-snippet-container shadow-sm">
+                            <div class="code-header">
+                                <span><i class="bi bi-code-slash me-2"></i>q7_stock_to_sales_ratio.sql</span>
+                                <span class="badge bg-light text-dark border">BigQuery SQL</span>
+                            </div>
+                            <div id="sql-container-cs2"
+                                style="max-height:200px;overflow:hidden;transition:max-height 0.5s ease;position:relative;">
+                                <pre class="mb-0"><code>WITH
+  sales_2011 AS (
+    SELECT
+      EXTRACT(MONTH FROM OrderDate) mth,
+      EXTRACT(YEAR FROM OrderDate) yr,
+      detail.ProductID,
+      p.Name,
+      SUM(OrderQty) sales
+    FROM `adventureworks2019.Sales.SalesOrderDetail` detail
+    INNER JOIN `adventureworks2019.Sales.SalesOrderHeader` header
+      ON detail.SalesOrderID = header.SalesOrderID
+    INNER JOIN `adventureworks2019.Production.Product` p
+      ON detail.ProductID = p.ProductID
+    WHERE EXTRACT(YEAR FROM OrderDate) = 2011
+    GROUP BY 1, 2, 3, 4
+  ),
+  stock_2011 AS (
+    SELECT
+      EXTRACT(MONTH FROM o.ModifiedDate) mth,
+      o.ProductID,
+      p.Name product_name,
+      SUM(StockedQty) stock
+    FROM `adventureworks2019.Production.WorkOrder` o
+    INNER JOIN `adventureworks2019.Production.Product` p
+      ON o.ProductID = p.ProductID
+    WHERE EXTRACT(YEAR FROM o.ModifiedDate) = 2011
+    GROUP BY 1, 2, 3
+  )
+SELECT
+  sa.mth, sa.yr, sa.Name,
+  sales, stock,
+  ROUND((stock / sales), 1) ratio
+FROM sales_2011 sa
+LEFT JOIN stock_2011 st ON sa.mth = st.mth AND sa.ProductID = st.ProductID
+ORDER BY 1 DESC, 7 DESC</code></pre>
+                                <div id="sql-fade-cs2"
+                                    style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,#f8f9fa);">
+                                </div>
+                            </div>
+                            <div class="text-center p-2 bg-light border-top">
+                                <button id="btn-toggle-cs2"
+                                    class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-4"
+                                    onclick="toggleSQL('cs2')">
+                                    See More <i class="bi bi-chevron-down ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <h3 class="sub-heading">Results</h3>
+                        <p>The query output ranks every product by its Stock-to-Sales Ratio for each month. The top
+                            offenders in November 2011 (sorted by highest ratio):</p>
+                        <div class="result-table-wrap shadow-sm mb-3">
+                            <table class="table table-sm table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Product Name</th>
+                                        <th>Sales</th>
+                                        <th>Stock</th>
+                                        <th>Ratio</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-muted">
+                                    <tr>
+                                        <td>11</td>
+                                        <td>Road-650 Red, 62</td>
+                                        <td>1</td>
+                                        <td>56</td>
+                                        <td><strong class="text-danger">56.0</strong></td>
+                                        <td><span class="badge bg-danger-subtle text-danger border">Overstock</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>Road-650 Red, 44</td>
+                                        <td>1</td>
+                                        <td>34</td>
+                                        <td><strong class="text-danger">34.0</strong></td>
+                                        <td><span class="badge bg-danger-subtle text-danger border">Overstock</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>Road-650 Red, 48</td>
+                                        <td>1</td>
+                                        <td>27</td>
+                                        <td><strong class="text-danger">27.0</strong></td>
+                                        <td><span class="badge bg-danger-subtle text-danger border">Overstock</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>Road-150 Red, 56</td>
+                                        <td>28</td>
+                                        <td>4</td>
+                                        <td><strong class="text-success">0.1</strong></td>
+                                        <td><span class="badge bg-warning-subtle text-warning border">Stockout
+                                                Risk</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="sub-heading">Key Insights</h3>
+                        <ul>
+                            <li class="mb-2"><strong>Critical Overstock Discovery:</strong> In November 2011, the
+                                <strong>Road-650 Red, 62</strong> model reached an alarming ratio of
+                                <strong>56.0</strong> — 56 units sitting idle against only 1 sold. At current velocity,
+                                that is over <strong>4 years of excess supply</strong>.
+                            </li>
+                            <li class="mb-2"><strong>Stockout Risk:</strong> The <strong>Road-150</strong> series
+                                dropped to a ratio of <strong>0.1</strong> (Stock 4 vs. Demand 28), signaling a severe
+                                inability to fulfill orders during peak months and direct revenue loss.</li>
+                        </ul>
+
+                        <div class="diagram-wrap mt-3 mb-1">
+                            <img src="../assets/sql_bicycle/top_5_sku.png" alt="Top 5 Inventory Risk SKUs"
+                                data-caption="Figure 2 — Top 5 products by Stock-to-Sales Ratio in 2011. Red bars indicate critical overstock; the Road-650 series dominates." />
+                        </div>
+                        <p class="diagram-caption text-center">Figure 2 — Top 5 products by Stock-to-Sales Ratio in
+                            2011. The Road-650 series dominates with ratios indicating years of idle supply.</p>
+                    </div>
+                    <!-- End Case Study 2 -->
+
+                </div>
+
+                <!-- Right Column: Sidebar -->
+                <div class="col-lg-4">
+                    <div class="sidebar-sticky">
+
+                        <!-- GitHub card (top, highlighted) -->
+                        <div class="card border-0 rounded-3 mb-4"
+                            style="background:linear-gradient(135deg,rgba(30,48,243,0.05) 0%,rgba(226,30,128,0.05) 100%);border:1px solid rgba(30,48,243,0.12) !important">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-1 fs-6 text-uppercase" style="color:var(--brand-blue)">Source
+                                    Code &amp; Data</h5>
+                                <p class="text-muted mb-3" style="font-size:0.78rem;line-height:1.5">For the raw SQL
+                                    scripts and full query repository, visit the GitHub link below.</p>
+                                <div class="d-grid">
+                                    <a href="https://github.com/hdangnguyen/Bicycle_Manufacturer_Performance_Analysis"
+                                        target="_blank" class="btn btn-sm fw-bold"
+                                        style="background:linear-gradient(135deg,var(--brand-blue),var(--brand-pink));color:white;border:none">
+                                        <i class="bi bi-github me-2"></i>View on GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table of Contents -->
+                        <div class="card border-0 bg-white rounded-3 shadow-sm mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Table of Contents</h5>
+                                <nav>
+                                    <a class="toc-link" href="#project-overview">Project Overview</a>
+                                    <a class="toc-link" href="#case-study-1">Case Study 1: Cohort</a>
+                                    <a class="toc-link" href="#case-study-2">Case Study 2: Inventory</a>
+                                </nav>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation CTA -->
+        <section class="py-5 bg-white border-top">
+            <div class="container px-5 my-2">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h3 class="fw-bold mb-3">Explore the Full Project</h3>
+                        <p class="text-muted mb-4">Interested in the complete SQL codebase, data dictionaries, and
+                            execution instructions? Visit the GitHub repository for this project to dive deeper.</p>
+                        <a class="btn btn-outline-dark px-4 py-2 fw-bold"
+                            href="https://github.com/hdangnguyen/Bicycle_Manufacturer_Performance_Analysis"
+                            target="_blank">
+                            <i class="bi bi-github me-2"></i>View Source Code &amp; Data
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto border-top">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-auto">
+                    <div class="small m-0 text-muted">Copyright &copy; Hai-Dang Nguyen 2026</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+        <img src="" alt="" id="lightbox-img" />
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+    <script>
+        // SQL toggle
+        function toggleSQL(id) {
+            const container = document.getElementById('sql-container-' + id);
+            const fade = document.getElementById('sql-fade-' + id);
+            const btn = document.getElementById('btn-toggle-' + id);
+            if (container.style.maxHeight === '200px') {
+                container.style.maxHeight = 'none';
+                fade.style.display = 'none';
+                btn.innerHTML = 'See Less <i class="bi bi-chevron-up ms-1"></i>';
+            } else {
+                container.style.maxHeight = '200px';
+                fade.style.display = 'block';
+                btn.innerHTML = 'See More <i class="bi bi-chevron-down ms-1"></i>';
+            }
+        }
+
+        // Lightbox
+        (function () {
+            const overlay = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            const lbCaption = document.getElementById('lightbox-caption');
+            const lbClose = document.getElementById('lightbox-close');
+
+            function openLightbox(src, alt, caption) {
+                lbImg.src = src;
+                lbImg.alt = alt;
+                lbCaption.textContent = caption || '';
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(() => { lbImg.src = ''; }, 250);
+            }
+
+            document.querySelectorAll('.img-lightbox, .diagram-wrap img').forEach(function (img) {
+                img.addEventListener('click', function () {
+                    openLightbox(img.src, img.alt, img.dataset.caption || img.alt || '');
+                });
+            });
+
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay || e.target === lbImg) closeLightbox();
+            });
+            lbClose.addEventListener('click', closeLightbox);
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        })();
+    </script>
+</body>
+
+</html>

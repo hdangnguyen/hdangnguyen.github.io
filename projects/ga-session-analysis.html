@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description"
+        content="Unlocking User Behavior: Google Analytics E-Commerce Session Analysis using BigQuery SQL" />
+    <meta name="author" content="Hai-Dang Nguyen" />
+    <title>Unlocking User Behavior: Google Analytics Session Analysis - Hai-Dang Nguyen Portfolio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <style>
+        :root {
+            --bs-body-font-size: 0.95rem;
+            --h1-size: 2.5rem;
+            --h2-size: 1.75rem;
+            --h3-size: 1.25rem;
+        }
+
+        body {
+            font-size: var(--bs-body-font-size);
+            line-height: 1.6;
+        }
+
+        .case-study-hero {
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2.5rem;
+        }
+
+        .case-study-hero h1 {
+            font-size: var(--h1-size);
+            font-weight: 700;
+        }
+
+        .case-study-section {
+            margin-bottom: 3.5rem;
+        }
+
+        h2.section-heading {
+            font-size: var(--h2-size);
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        h3.sub-heading {
+            font-size: var(--h3-size);
+            font-weight: 600;
+            color: #343a40;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-card {
+            border-left: 4px solid #1e30f3;
+            background-color: #f8f9fa;
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        .tech-badge {
+            font-size: 0.85rem;
+            padding: 0.4em 0.8em;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            background-color: white;
+            color: #212529;
+        }
+
+        .code-snippet-container {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-header {
+            background-color: #e9ecef;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: #212529;
+        }
+
+        /* Results Table Styling */
+        .results-table-container {
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .results-table-header {
+            background-color: #1e30f3;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .results-table-container table {
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .results-table-container thead {
+            background-color: #f0f4ff;
+        }
+
+        .results-table-container thead th {
+            font-weight: 600;
+            color: #1e30f3;
+            border-bottom: 2px solid #dee2e6;
+            padding: 0.6rem 1rem;
+            white-space: nowrap;
+        }
+
+        .results-table-container tbody td {
+            padding: 0.55rem 1rem;
+            vertical-align: middle;
+            color: #343a40;
+        }
+
+        .results-table-container tbody tr:hover {
+            background-color: #f8f0ff;
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm sticky-top">
+            <div class="container px-5">
+                <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">Hai-Dang
+                        Nguyen</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item"><a class="nav-link" href="../resume.html">About Me</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
+                        <li class="nav-item" style="display:none"><a class="nav-link" href="../book.html">Book Read</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Case Study Hero Header-->
+        <header class="case-study-hero">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="col-lg-10 col-xl-9">
+                        <div class="text-center">
+                            <div
+                                class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide shadow-sm">
+                                Advanced SQL Analysis</div>
+                            <h1 class="mb-3">Unlocking User Behavior: Google Analytics Session Analysis</h1>
+                            <p class="lead fw-normal text-white-50 mb-0 mx-auto"
+                                style="max-width: 800px; font-size: 1.1rem; line-height: 1.6;">An Advanced SQL project
+                                querying Google's public GA sessions dataset on BigQuery to uncover critical e-commerce
+                                conversion patterns — from how users browse to how they buy.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container px-5">
+            <div class="row gx-5">
+                <!-- Left Column: Main Narrative -->
+                <div class="col-lg-8">
+
+                    <!-- Key Metrics -->
+                    <div class="case-study-section mt-3">
+                        <div class="row g-3 mb-2">
+                            <div class="col-md-4">
+                                <div class="metric-card shadow-sm">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-funnel-fill fs-3 text-primary me-3"></i>
+                                        <div>
+                                            <h5 class="fw-bold mb-0">Conversion Funnel</h5>
+                                            <small class="text-muted">View → Cart → Purchase</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="metric-card shadow-sm">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-people-fill fs-3 text-primary me-3"></i>
+                                        <div>
+                                            <h5 class="fw-bold mb-0">User Segmentation</h5>
+                                            <small class="text-muted">Purchaser vs Non-Purchaser</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="metric-card shadow-sm">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-bar-chart-fill fs-3 text-primary me-3"></i>
+                                        <div>
+                                            <h5 class="fw-bold mb-0">Behavioral Analytics</h5>
+                                            <small class="text-muted">Engagement Benchmarks</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case Study 1 Wrapper -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="case-study-1">Case Study 1: E-Commerce Conversion Funnel
+                            Analysis</h2>
+
+                        <!-- 1. The Business Challenge -->
+                        <h3 class="sub-heading">The Business Challenge</h3>
+                        <p>The product team knew traffic was healthy — but revenue wasn't growing proportionally.
+                            The core question was: <strong>where exactly are users dropping off in the buying
+                                journey?</strong> Without mapping the full funnel from product view to cart to purchase,
+                            there was no clear signal on whether the bottleneck was product discovery, cart friction, or
+                            checkout hesitation.</p>
+
+                        <!-- 2. My Approach -->
+                        <h3 class="sub-heading">My Approach</h3>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div>
+                                <strong>Funnel Mapping via Action Types:</strong> Leveraged
+                                <code>eCommerceAction.action_type</code> codes to classify each hit — <em>'2' = Product
+                                    View</em>, <em>'3' = Add to Cart</em>, <em>'6' = Purchase</em>.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div>
+                                <strong>Revenue Guard:</strong> Applied a <code>productRevenue IS NOT NULL</code> filter
+                                on purchase events to ensure only genuine completed transactions were counted, excluding
+                                abandoned checkouts.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">3</span>
+                            <div>
+                                <strong>Rate Calculation:</strong> Computed Add-to-Cart Rate
+                                (<code>num_addtocart / num_product_view</code>) and Purchase Rate
+                                (<code>num_purchase / num_product_view</code>) as percentages to make the funnel loss
+                                comparable across months.
+                            </div>
+                        </div>
+
+                        <!-- 3. Solution (Code Snippet) -->
+                        <h3 class="sub-heading">Solution</h3>
+                        <p class="mb-3">The query uses a two-step CTE to first categorize hit events, then aggregate
+                            the funnel counts and calculate conversion rates per month:</p>
+                        <div class="code-snippet-container shadow-sm">
+                            <div class="code-header">
+                                <span><i class="bi bi-code-slash me-2"></i>SQL Query</span>
+                                <span class="badge bg-light text-dark border">BigQuery (GA Sessions 2017)</span>
+                            </div>
+                            <div id="sql-container-cs1"
+                                style="max-height: 200px; overflow: hidden; transition: max-height 0.5s ease; position: relative;">
+                                <pre class="mb-0"><code>WITH
+  data_overview AS(
+  SELECT
+    FORMAT_DATE('%Y%m',PARSE_DATE('%Y%m%d',date)) month,
+    eCommerceAction.action_type action_type,
+    totals.transactions,
+    product.productRevenue
+  FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+    UNNEST(hits) hits,
+    UNNEST(product) product
+  WHERE _table_suffix BETWEEN '0101' AND '0331'
+  ),
+
+  data_count AS(
+  SELECT
+    month,
+    COUNTIF(action_type = '2') num_product_view,
+    COUNTIF(action_type = '3') num_addtocart,
+    COUNTIF(action_type = '6' AND productRevenue IS NOT NULL) num_purchase,
+  FROM data_overview
+  GROUP BY month
+  ORDER BY month
+  )
+
+SELECT
+  *,
+  ROUND((num_addtocart/num_product_view * 100.0),2) add_to_cart_rate,
+  ROUND((num_purchase/num_product_view * 100.0),2) purchase_rate
+FROM data_count</code></pre>
+                                <div id="sql-fade-cs1"
+                                    style="position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, #f8f9fa);">
+                                </div>
+                            </div>
+                            <div class="text-center p-2 bg-light border-top">
+                                <button id="btn-toggle-cs1"
+                                    class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-4"
+                                    onclick="toggleSQL('cs1')">
+                                    See More <i class="bi bi-chevron-down ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Query Result Table -->
+                        <h3 class="sub-heading">Query Result</h3>
+                        <div class="results-table-container shadow-sm">
+                            <div class="results-table-header">
+                                <i class="bi bi-table"></i>
+                                <span>Output — Cohort Map: Product View → Add to Cart → Purchase (Jan–Mar 2017)</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Product Views</th>
+                                            <th>Add to Cart</th>
+                                            <th>Purchases</th>
+                                            <th>Add-to-Cart Rate</th>
+                                            <th>Purchase Rate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>201701</strong></td>
+                                            <td>25,787</td>
+                                            <td>7,342</td>
+                                            <td>2,143</td>
+                                            <td>28.47%</td>
+                                            <td>8.31%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>201702</strong></td>
+                                            <td>21,489</td>
+                                            <td>7,360</td>
+                                            <td>2,060</td>
+                                            <td>34.25%</td>
+                                            <td>9.59%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>201703</strong></td>
+                                            <td>23,549</td>
+                                            <td>8,782</td>
+                                            <td>2,977</td>
+                                            <td>37.29%</td>
+                                            <td>12.64%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 4. Key Insights -->
+                        <h3 class="sub-heading">Key Insights</h3>
+                        <ul>
+                            <li class="mb-2"><strong>Improving Funnel Efficiency Over Time:</strong> The Add-to-Cart
+                                Rate grew from <strong>28.47% in January to 37.29% in March</strong> — a 31% relative
+                                improvement. This suggests either seasonal intent strengthening or product/UX changes
+                                beginning to take effect.</li>
+                            <li class="mb-2"><strong>The Cart-to-Purchase Gap Remains the Biggest Leak:</strong>
+                                Despite healthy Add-to-Cart rates (~28–37%), the Purchase Rate sits at only
+                                <strong>8–13%</strong>. This means roughly <strong>65–72% of users who add to cart
+                                    never complete a purchase</strong> — a cart abandonment problem.
+                            </li>
+                            <li class="mb-2"><strong>March Outperforms:</strong> March shows the strongest conversion
+                                across all metrics — highest Add-to-Cart Rate (37.29%), highest Purchase Rate (12.64%),
+                                and highest absolute purchase volume (2,977). This could reflect a seasonal demand spike
+                                or a successful promotional push.</li>
+                        </ul>
+
+                        <!-- 5. Recommendation -->
+                        <h3 class="sub-heading">Recommendation</h3>
+                        <div class="alert alert-light border-start border-primary border-4 shadow-sm" role="alert">
+                            <h5 class="alert-heading fw-bold fs-6"><i
+                                    class="bi bi-lightbulb-fill text-warning me-2"></i>Actionable Strategy</h5>
+                            <p class="mb-2 small"><strong>Target Cart Abandonment (Priority #1):</strong> Since 65–72%
+                                of cart-adders never purchase, implement an <strong>automated cart abandonment email
+                                    sequence</strong> triggered 1 hour, 24 hours, and 72 hours after cart inactivity.
+                                Include a time-limited offer (e.g., free shipping) to recover fence-sitters.</p>
+                            <p class="mb-0 small"><strong>Replicate March's Success:</strong> Identify what drove the
+                                March spike — whether it was a promotion, SEO push, or UX change — and engineer those
+                                conditions deliberately in lower-performing months to lift the baseline Purchase Rate
+                                above 10%.</p>
+                        </div>
+
+                    </div>
+                    <!-- End Case Study 1 -->
+
+                    <!-- Case Study 2 Wrapper -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="case-study-2">Case Study 2: Purchaser vs. Non-Purchaser
+                            Behavior</h2>
+
+                        <!-- 1. The Business Challenges -->
+                        <h3 class="sub-heading">The Business Challenge</h3>
+                        <p>Marketing was spending budget equally on all visitors, but not all visitors are equal.
+                            The growth team needed to understand: <strong>what separates a buyer from a
+                                browser?</strong> Specifically, do purchasers engage more deeply with the site (as
+                            measured
+                            by pageviews per session), and does this pattern differ by month? Knowing this would justify
+                            <em>whether personalizing depth-of-engagement signals</em> is a viable path to higher
+                            conversion.
+                        </p>
+
+                        <!-- 2. My Approach -->
+                        <h3 class="sub-heading">My Approach</h3>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div>
+                                <strong>Segment Definition:</strong> Defined <em>Purchasers</em> as users with
+                                <code>totals.transactions >= 1</code> AND <code>productRevenue IS NOT NULL</code>.
+                                <em>Non-Purchasers</em> were users with <code>transactions IS NULL</code> AND
+                                <code>productRevenue IS NULL</code> — ensuring clean, mutually exclusive groups.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div>
+                                <strong>Metric Design:</strong> Computed <strong>Average Pageviews per Unique
+                                    Visitor</strong> (<code>SUM(pageviews) / COUNT(DISTINCT fullVisitorId)</code>) for
+                                each
+                                segment to normalize for different user counts.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">3</span>
+                            <div>
+                                <strong>Safe Joining:</strong> Used a <code>FULL JOIN</code> (not INNER JOIN) between
+                                the two CTEs to prevent data loss in months where one segment might have zero
+                                representation.
+                            </div>
+                        </div>
+
+                        <!-- 3. Solution -->
+                        <h3 class="sub-heading">Solution</h3>
+                        <div class="code-snippet-container shadow-sm">
+                            <div class="code-header">
+                                <span><i class="bi bi-code-slash me-2"></i>SQL Query</span>
+                                <span class="badge bg-light text-dark border">BigQuery (GA Sessions 2017)</span>
+                            </div>
+                            <div id="sql-container-cs2"
+                                style="max-height: 200px; overflow: hidden; transition: max-height 0.5s ease; position: relative;">
+                                <pre class="mb-0"><code>WITH
+  t6_t7_data AS(
+    SELECT
+      FORMAT_DATE('%Y%m',PARSE_DATE('%Y%m%d',date)) month,
+      totals.transactions,
+      product.productRevenue,
+      totals.pageviews,
+      fullVisitorId
+    FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+      UNNEST(hits) hits,
+      UNNEST(product) product
+    WHERE _table_suffix BETWEEN '0601' AND '0731'
+  ),
+
+  purchase AS(
+    SELECT
+      month,
+      ROUND(SUM(pageviews) / COUNT(DISTINCT fullVisitorId), 8) avg_pageviews_purchase
+    FROM t6_t7_data
+    WHERE transactions >= 1 AND productRevenue IS NOT NULL
+    GROUP BY month
+  ),
+
+  non_purchase AS(
+    SELECT
+      month,
+      ROUND(SUM(pageviews) / COUNT(DISTINCT fullVisitorId), 8) avg_pageviews_non_purchase
+    FROM t6_t7_data
+    WHERE transactions IS NULL AND productRevenue IS NULL
+    GROUP BY month
+    ORDER BY month
+  )
+
+SELECT *
+FROM purchase
+FULL JOIN non_purchase
+USING(month)
+ORDER BY month</code></pre>
+                                <div id="sql-fade-cs2"
+                                    style="position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(transparent, #f8f9fa);">
+                                </div>
+                            </div>
+                            <div class="text-center p-2 bg-light border-top">
+                                <button id="btn-toggle-cs2"
+                                    class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-4"
+                                    onclick="toggleSQL('cs2')">
+                                    See More <i class="bi bi-chevron-down ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Query Result Table -->
+                        <h3 class="sub-heading">Query Result</h3>
+                        <div class="results-table-container shadow-sm">
+                            <div class="results-table-header">
+                                <i class="bi bi-table"></i>
+                                <span>Output — Avg Pageviews per User: Purchasers vs. Non-Purchasers (Jun–Jul
+                                    2017)</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Avg Pageviews (Purchasers)</th>
+                                            <th>Avg Pageviews (Non-Purchasers)</th>
+                                            <th>Engagement Gap (×)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>201706</strong></td>
+                                            <td>94.02</td>
+                                            <td>316.87</td>
+                                            <td>3.4×</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>201707</strong></td>
+                                            <td>124.24</td>
+                                            <td>334.06</td>
+                                            <td>2.7×</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 4. Key Insights -->
+                        <h3 class="sub-heading">Key Insights</h3>
+                        <ul>
+                            <li class="mb-2"><strong>Non-Purchasers Browse 3× More Than Buyers:</strong>
+                                Counterintuitively, non-purchasers rack up
+                                <strong>316–334 pageviews per user</strong> vs. only 94–124 for buyers. This is not
+                                a sign of high engagement — it's a signal of <strong>indecision and friction</strong>.
+                                Users are looping through pages without finding what converts them.
+                            </li>
+                            <li class="mb-2"><strong>Purchasers Are Decisive:</strong> Buyers navigate with purpose.
+                                Their lower pageview counts (~94–124) suggest they found the right product quickly and
+                                completed the purchase without extensive browsing. This aligns with research showing
+                                that <strong>higher pageviews often correlate with confusion, not interest</strong>.
+                            </li>
+                            <li class="mb-2"><strong>The Gap Narrowed in July:</strong> The engagement gap shrank from
+                                3.4× in June to 2.7× in July, possibly because July's purchasers were more engaged
+                                (avg. 124 pageviews vs. 94), suggesting improved product discovery or stronger
+                                promotional targeting.</li>
+                        </ul>
+
+                        <!-- 5. Recommendations -->
+                        <h3 class="sub-heading">Recommendations</h3>
+                        <div class="alert alert-light border-start border-primary border-4 shadow-sm" role="alert">
+                            <h5 class="alert-heading fw-bold fs-6"><i
+                                    class="bi bi-lightbulb-fill text-warning me-2"></i>Actionable Strategy</h5>
+                            <p class="mb-2 small"><strong>Target High-Pageview Users with Exit-Intent Offers:</strong>
+                                Identify users who have exceeded ~200 pageviews in a session without adding to cart.
+                                Serve them a <strong>contextual pop-up</strong> (e.g., "Need help finding the right
+                                product?") or a personalized recommendation widget — intervening before they bounce.
+                            </p>
+                            <p class="mb-0 small"><strong>Reduce Friction with Better Navigation:</strong> Since
+                                non-purchasers loop through many pages, invest in improving <strong>site search
+                                    relevance, filtering UX, and product comparison features</strong>. The goal is to
+                                convert "wanderers" into "decisive shoppers" by surfacing the right product faster.
+                            </p>
+                        </div>
+
+                    </div>
+                    <!-- End Case Study 2 -->
+
+                </div>
+
+                <!-- Right Column: Sidebar Info -->
+                <div class="col-lg-4">
+                    <div class="sidebar-sticky">
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Technologies</h5>
+                                <div>
+                                    <span class="tech-badge">BigQuery SQL</span>
+                                    <span class="tech-badge">CTEs</span>
+                                    <span class="tech-badge">Window Functions</span>
+                                    <span class="tech-badge">UNNEST</span>
+                                    <span class="tech-badge">Funnel Analysis</span>
+                                    <span class="tech-badge">User Segmentation</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Data Source</h5>
+                                <p class="mb-1 small text-muted"><i class="bi bi-database me-2 text-primary"></i>
+                                    <strong>Google Analytics Sample Dataset</strong>
+                                </p>
+                                <p class="mb-0 small text-muted" style="padding-left: 1.4rem;">
+                                    <code>bigquery-public-data.google_analytics_sample.ga_sessions_2017*</code>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Project Links</h5>
+                                <div class="d-grid gap-2">
+                                    <a href="https://github.com/hdangnguyen/GA-Sessions-ECommerce-Analysis"
+                                        target="_blank" class="btn btn-outline-dark btn-sm fw-bold">
+                                        <i class="bi bi-github me-2"></i>View Source Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table of Contents Card -->
+                        <div class="card border-0 bg-white rounded-3 shadow mb-4 sticky-top" style="top: 6rem;">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Table of Contents</h5>
+                                <ul class="list-unstyled mb-0 small">
+                                    <li class="mb-3">
+                                        <a href="#case-study-1"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Case
+                                            Study 1: Conversion Funnel
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#case-study-2"
+                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
+                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Case
+                                            Study 2: Purchaser Behavior
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto border-top">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-auto">
+                    <div class="small m-0 text-muted">Copyright &copy; Hai-Dang Nguyen 2026</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+    <script>
+        function toggleSQL(id) {
+            const container = document.getElementById('sql-container-' + id);
+            const fade = document.getElementById('sql-fade-' + id);
+            const btn = document.getElementById('btn-toggle-' + id);
+
+            if (container.style.maxHeight === '200px') {
+                container.style.maxHeight = 'none';
+                fade.style.display = 'none';
+                btn.innerHTML = 'See Less <i class="bi bi-chevron-up ms-1"></i>';
+            } else {
+                container.style.maxHeight = '200px';
+                fade.style.display = 'block';
+                btn.innerHTML = 'See More <i class="bi bi-chevron-down ms-1"></i>';
+            }
+        }
+    </script>
+</body>
+
+</html>
