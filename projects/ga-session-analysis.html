@@ -22,27 +22,28 @@
     <link href="../css/styles.css" rel="stylesheet" />
     <style>
         :root {
+            --brand-blue: #1e30f3;
+            --brand-pink: #e21e80;
             --bs-body-font-size: 0.95rem;
-            --h1-size: 2.5rem;
-            --h2-size: 1.75rem;
-            --h3-size: 1.25rem;
         }
 
         body {
             font-size: var(--bs-body-font-size);
-            line-height: 1.6;
+            line-height: 1.7;
+            color: #343a40;
         }
 
         .case-study-hero {
             background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
             color: white;
-            padding: 3rem 0;
+            padding: 3.5rem 0 3rem;
             margin-bottom: 2.5rem;
         }
 
         .case-study-hero h1 {
-            font-size: var(--h1-size);
-            font-weight: 700;
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.25;
         }
 
         .case-study-section {
@@ -50,47 +51,48 @@
         }
 
         h2.section-heading {
-            font-size: var(--h2-size);
+            font-size: 1.6rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-pink) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             border-bottom: 2px solid #e9ecef;
             padding-bottom: 0.5rem;
             display: inline-block;
         }
 
         h3.sub-heading {
-            font-size: var(--h3-size);
-            font-weight: 600;
-            color: #343a40;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #6c757d;
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .metric-card {
-            border-left: 4px solid #1e30f3;
+            border-left: 4px solid var(--brand-blue);
             background-color: #f8f9fa;
             padding: 1.25rem;
             height: 100%;
         }
 
         .tech-badge {
-            font-size: 0.85rem;
-            padding: 0.4em 0.8em;
+            font-size: 0.82rem;
+            padding: 0.35em 0.8em;
             margin-right: 0.4rem;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             display: inline-block;
             border: 1px solid #dee2e6;
             border-radius: 20px;
-            background-color: white;
+            background-color: #fff;
             color: #212529;
         }
 
+        /* Code block */
         .code-snippet-container {
             background-color: #f8f9fa;
             border: 1px solid #e9ecef;
@@ -113,12 +115,13 @@
         pre {
             margin: 0;
             padding: 1rem;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: #212529;
         }
 
-        /* Results Table Styling */
-        .results-table-container {
+        /* Results table */
+        .results-table-container,
+        .result-table-wrap {
             border: 1px solid #e9ecef;
             border-radius: 0.5rem;
             overflow: hidden;
@@ -137,16 +140,19 @@
             gap: 0.5rem;
         }
 
-        .results-table-container table {
+        .results-table-container table,
+        .result-table-wrap table {
             margin: 0;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
         }
 
-        .results-table-container thead {
+        .results-table-container thead,
+        .result-table-wrap thead {
             background-color: #f0f4ff;
         }
 
-        .results-table-container thead th {
+        .results-table-container thead th,
+        .result-table-wrap thead th {
             font-weight: 600;
             color: #1e30f3;
             border-bottom: 2px solid #dee2e6;
@@ -154,19 +160,155 @@
             white-space: nowrap;
         }
 
-        .results-table-container tbody td {
+        .results-table-container tbody td,
+        .result-table-wrap tbody td {
             padding: 0.55rem 1rem;
             vertical-align: middle;
             color: #343a40;
         }
 
-        .results-table-container tbody tr:hover {
+        .results-table-container tbody tr:hover,
+        .result-table-wrap tbody tr:hover {
             background-color: #f8f0ff;
         }
 
+        /* Diagram images */
+        .diagram-wrap {
+            border: 1px solid #e9ecef;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .diagram-wrap img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+        }
+
+        .diagram-caption {
+            font-size: 0.82rem;
+            color: #6c757d;
+            margin-top: 0.6rem;
+            font-style: italic;
+        }
+
+        /* Sidebar */
         .sidebar-sticky {
             position: sticky;
-            top: 2rem;
+            top: 5.5rem;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.35rem 0;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+            transition: all 0.15s;
+        }
+
+        .toc-link:hover {
+            color: var(--brand-blue);
+            border-left-color: var(--brand-blue);
+            padding-left: 1rem;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: lbFadeIn 0.2s ease;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-overlay img {
+            max-width: 92vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 0.75rem;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+            animation: lbZoomIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: zoom-out;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.15s, transform 0.15s;
+            z-index: 10000;
+            background: none;
+            border: none;
+        }
+
+        .lightbox-close:hover {
+            color: #fff;
+            transform: scale(1.15);
+        }
+
+        .lightbox-caption {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.82rem;
+            font-style: italic;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        @keyframes lbFadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes lbZoomIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        .img-lightbox,
+        .diagram-wrap img {
+            cursor: zoom-in;
+            transition: opacity 0.15s;
+        }
+
+        .img-lightbox:hover,
+        .diagram-wrap img:hover {
+            opacity: 0.88;
         }
     </style>
 </head>
@@ -193,21 +335,32 @@
             </div>
         </nav>
 
-        <!-- Case Study Hero Header-->
+        <!-- Hero -->
         <header class="case-study-hero">
             <div class="container px-5">
                 <div class="row gx-5 align-items-center justify-content-center">
-                    <div class="col-lg-10 col-xl-9">
-                        <div class="text-center">
-                            <div
-                                class="badge bg-white text-primary mb-3 text-uppercase fw-bold tracking-wide shadow-sm">
-                                Advanced SQL Analysis</div>
-                            <h1 class="mb-3">Unlocking User Behavior: Google Analytics Session Analysis</h1>
-                            <p class="lead fw-normal text-white-50 mb-0 mx-auto"
-                                style="max-width: 800px; font-size: 1.1rem; line-height: 1.6;">An Advanced SQL project
-                                querying Google's public GA sessions dataset on BigQuery to uncover critical e-commerce
-                                conversion patterns — from how users browse to how they buy.
-                            </p>
+                    <div class="col-lg-10 col-xl-9 text-center">
+                        <div class="mb-3">
+                            <span class="badge bg-primary bg-gradient rounded-pill me-1">SQL</span>
+                            <span class="badge bg-primary bg-gradient rounded-pill">Google BigQuery</span>
+                        </div>
+                        <h1 class="mb-3">Unlocking User Behavior: Google Analytics Session Analysis</h1>
+                        <p class="lead fw-normal text-white-50 mb-3 mx-auto"
+                            style="max-width:750px;font-size:1rem;line-height:1.6;">An Advanced SQL project querying
+                            Google's public GA sessions dataset on BigQuery to uncover critical e-commerce conversion
+                            patterns — from how users browse to how they buy.</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-2" style="opacity:0.8">
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Funnel Analysis</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">User Segmentation</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Behavioral
+                                Analytics</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Window Functions</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">CTEs</span>
                         </div>
                     </div>
                 </div>
@@ -215,48 +368,32 @@
         </header>
 
         <!-- Main Content -->
-        <div class="container px-5">
+        <div class="container px-5 mb-5">
             <div class="row gx-5">
-                <!-- Left Column: Main Narrative -->
+                <!-- Left Column -->
                 <div class="col-lg-8">
 
-                    <!-- Key Metrics -->
-                    <div class="case-study-section mt-3">
-                        <div class="row g-3 mb-2">
-                            <div class="col-md-4">
-                                <div class="metric-card shadow-sm">
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-funnel-fill fs-3 text-primary me-3"></i>
-                                        <div>
-                                            <h5 class="fw-bold mb-0">Conversion Funnel</h5>
-                                            <small class="text-muted">View → Cart → Purchase</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="metric-card shadow-sm">
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-people-fill fs-3 text-primary me-3"></i>
-                                        <div>
-                                            <h5 class="fw-bold mb-0">User Segmentation</h5>
-                                            <small class="text-muted">Purchaser vs Non-Purchaser</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="metric-card shadow-sm">
-                                    <div class="d-flex align-items-center">
-                                        <i class="bi bi-bar-chart-fill fs-3 text-primary me-3"></i>
-                                        <div>
-                                            <h5 class="fw-bold mb-0">Behavioral Analytics</h5>
-                                            <small class="text-muted">Engagement Benchmarks</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Cover image -->
+                    <div class="mb-4 mt-2">
+                        <div class="diagram-wrap" style="padding:0;overflow:hidden;">
+                            <img src="../assets/sql-ga-session/ga-session-cover-image.jpg"
+                                alt="Google Analytics Session Analysis Cover Image"
+                                style="width:100%;height:auto;border-radius:0.5rem;" />
                         </div>
+                    </div>
+
+                    <!-- ─── Project Overview ─── -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="project-overview">Project Overview</h2>
+                        <p>In this project, I performed deep-dive data analysis on Google's public <strong>Google
+                                Analytics Sessions dataset</strong>. The dataset contains obfuscated web analytics data
+                            from the Google Merchandise Store, a real e-commerce website.</p>
+                        <p>The primary objective of this project is to demonstrate advanced SQL capabilities in solving
+                            complex e-commerce business problems. By examining millions of session logs and hits, I
+                            explore various behavioral metrics. This page highlights two of the most critical deep-dive
+                            case studies from that analysis: <strong>Conversion Funnel Analysis</strong> and
+                            <strong>Purchaser vs. Non-Purchaser Behavior</strong>.
+                        </p>
                     </div>
 
                     <!-- Case Study 1 Wrapper -->
@@ -419,21 +556,7 @@ FROM data_count</code></pre>
                                 and highest absolute purchase volume (2,977). This could reflect a seasonal demand spike
                                 or a successful promotional push.</li>
                         </ul>
-
-                        <!-- 5. Recommendation -->
-                        <h3 class="sub-heading">Recommendation</h3>
-                        <div class="alert alert-light border-start border-primary border-4 shadow-sm" role="alert">
-                            <h5 class="alert-heading fw-bold fs-6"><i
-                                    class="bi bi-lightbulb-fill text-warning me-2"></i>Actionable Strategy</h5>
-                            <p class="mb-2 small"><strong>Target Cart Abandonment (Priority #1):</strong> Since 65–72%
-                                of cart-adders never purchase, implement an <strong>automated cart abandonment email
-                                    sequence</strong> triggered 1 hour, 24 hours, and 72 hours after cart inactivity.
-                                Include a time-limited offer (e.g., free shipping) to recover fence-sitters.</p>
-                            <p class="mb-0 small"><strong>Replicate March's Success:</strong> Identify what drove the
-                                March spike — whether it was a promotion, SEO push, or UX change — and engineer those
-                                conditions deliberately in lower-performing months to lift the baseline Purchase Rate
-                                above 10%.</p>
-                        </div>
+                        </ul>
 
                     </div>
                     <!-- End Case Study 1 -->
@@ -598,23 +721,7 @@ ORDER BY month</code></pre>
                                 (avg. 124 pageviews vs. 94), suggesting improved product discovery or stronger
                                 promotional targeting.</li>
                         </ul>
-
-                        <!-- 5. Recommendations -->
-                        <h3 class="sub-heading">Recommendations</h3>
-                        <div class="alert alert-light border-start border-primary border-4 shadow-sm" role="alert">
-                            <h5 class="alert-heading fw-bold fs-6"><i
-                                    class="bi bi-lightbulb-fill text-warning me-2"></i>Actionable Strategy</h5>
-                            <p class="mb-2 small"><strong>Target High-Pageview Users with Exit-Intent Offers:</strong>
-                                Identify users who have exceeded ~200 pageviews in a session without adding to cart.
-                                Serve them a <strong>contextual pop-up</strong> (e.g., "Need help finding the right
-                                product?") or a personalized recommendation widget — intervening before they bounce.
-                            </p>
-                            <p class="mb-0 small"><strong>Reduce Friction with Better Navigation:</strong> Since
-                                non-purchasers loop through many pages, invest in improving <strong>site search
-                                    relevance, filtering UX, and product comparison features</strong>. The goal is to
-                                convert "wanderers" into "decisive shoppers" by surfacing the right product faster.
-                            </p>
-                        </div>
+                        </ul>
 
                     </div>
                     <!-- End Case Study 2 -->
@@ -624,64 +731,41 @@ ORDER BY month</code></pre>
                 <!-- Right Column: Sidebar Info -->
                 <div class="col-lg-4">
                     <div class="sidebar-sticky">
-                        <div class="card border-0 shadow-sm rounded-3 mb-4">
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Technologies</h5>
-                                <div>
-                                    <span class="tech-badge">BigQuery SQL</span>
-                                    <span class="tech-badge">CTEs</span>
-                                    <span class="tech-badge">Window Functions</span>
-                                    <span class="tech-badge">UNNEST</span>
-                                    <span class="tech-badge">Funnel Analysis</span>
-                                    <span class="tech-badge">User Segmentation</span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="card border-0 shadow-sm rounded-3 mb-4">
+                        <!-- GitHub card (top, highlighted) -->
+                        <div class="card border-0 rounded-3 mb-4"
+                            style="background:linear-gradient(135deg,rgba(30,48,243,0.05) 0%,rgba(226,30,128,0.05) 100%);border:1px solid rgba(30,48,243,0.12) !important">
                             <div class="card-body p-4">
-                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Data Source</h5>
-                                <p class="mb-1 small text-muted"><i class="bi bi-database me-2 text-primary"></i>
-                                    <strong>Google Analytics Sample Dataset</strong>
-                                </p>
-                                <p class="mb-0 small text-muted" style="padding-left: 1.4rem;">
-                                    <code>bigquery-public-data.google_analytics_sample.ga_sessions_2017*</code>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="card border-0 shadow-sm rounded-3 mb-4">
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Project Links</h5>
-                                <div class="d-grid gap-2">
+                                <h5 class="fw-bold mb-1 fs-6 text-uppercase" style="color:var(--brand-blue)">Source
+                                    Code &amp; Data</h5>
+                                <p class="text-muted mb-3" style="font-size:0.78rem;line-height:1.5">For the raw SQL
+                                    scripts and full dataset repository, visit the GitHub link below.</p>
+                                <div class="d-grid mb-3">
                                     <a href="https://github.com/hdangnguyen/GA-Sessions-ECommerce-Analysis"
-                                        target="_blank" class="btn btn-outline-dark btn-sm fw-bold">
-                                        <i class="bi bi-github me-2"></i>View Source Code
+                                        target="_blank" class="btn btn-sm fw-bold"
+                                        style="background:linear-gradient(135deg,var(--brand-blue),var(--brand-pink));color:white;border:none">
+                                        <i class="bi bi-github me-2"></i>View on GitHub
                                     </a>
                                 </div>
+                                <div class="bg-white p-3 rounded-2 shadow-sm border-0">
+                                    <p class="mb-1 fw-bold text-dark" style="font-size:0.85rem;"><i
+                                            class="bi bi-database text-primary me-2"></i>GA Sample Dataset</p>
+                                    <p class="mb-0 text-muted"
+                                        style="font-family: monospace; font-size: 0.75rem; word-break: break-all;">
+                                        bigquery-public-data.google_analytics_sample.ga_sessions_2017*</p>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Table of Contents Card -->
-                        <div class="card border-0 bg-white rounded-3 shadow mb-4 sticky-top" style="top: 6rem;">
+                        <!-- Table of Contents -->
+                        <div class="card border-0 bg-white shadow-sm rounded-3 mb-4">
                             <div class="card-body p-4">
                                 <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Table of Contents</h5>
-                                <ul class="list-unstyled mb-0 small">
-                                    <li class="mb-3">
-                                        <a href="#case-study-1"
-                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
-                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Case
-                                            Study 1: Conversion Funnel
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#case-study-2"
-                                            class="text-decoration-none text-secondary fw-bold d-block py-1 hover-primary">
-                                            <i class="bi bi-caret-right-fill me-2 fs-6 text-primary opacity-50"></i>Case
-                                            Study 2: Purchaser Behavior
-                                        </a>
-                                    </li>
-                                </ul>
+                                <nav>
+                                    <a class="toc-link" href="#project-overview">Project Overview</a>
+                                    <a class="toc-link" href="#case-study-1">Case Study 1: Funnel</a>
+                                    <a class="toc-link" href="#case-study-2">Case Study 2: Purchaser</a>
+                                </nav>
                             </div>
                         </div>
 
@@ -689,6 +773,23 @@ ORDER BY month</code></pre>
                 </div>
             </div>
         </div>
+
+        <!-- Bottom Navigation CTA -->
+        <section class="py-5 bg-white border-top">
+            <div class="container px-5 my-2">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h3 class="fw-bold mb-3">Explore the Full Project</h3>
+                        <p class="text-muted mb-4">Interested in the complete SQL codebase, data dictionaries, and
+                            execution instructions? Visit the GitHub repository for this project to dive deeper.</p>
+                        <a class="btn btn-outline-dark px-4 py-2 fw-bold"
+                            href="https://github.com/hdangnguyen/GA-Sessions-ECommerce-Analysis" target="_blank">
+                            <i class="bi bi-github me-2"></i>View Source Code &amp; Data
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </main>
     <!-- Footer-->
@@ -701,16 +802,24 @@ ORDER BY month</code></pre>
             </div>
         </div>
     </footer>
+
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+        <img src="" alt="" id="lightbox-img" />
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="../js/scripts.js"></script>
     <script>
+        // SQL toggle
         function toggleSQL(id) {
             const container = document.getElementById('sql-container-' + id);
             const fade = document.getElementById('sql-fade-' + id);
             const btn = document.getElementById('btn-toggle-' + id);
-
             if (container.style.maxHeight === '200px') {
                 container.style.maxHeight = 'none';
                 fade.style.display = 'none';
@@ -721,6 +830,42 @@ ORDER BY month</code></pre>
                 btn.innerHTML = 'See More <i class="bi bi-chevron-down ms-1"></i>';
             }
         }
+
+        // Lightbox
+        (function () {
+            const overlay = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            const lbCaption = document.getElementById('lightbox-caption');
+            const lbClose = document.getElementById('lightbox-close');
+
+            function openLightbox(src, alt, caption) {
+                lbImg.src = src;
+                lbImg.alt = alt;
+                lbCaption.textContent = caption || '';
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(() => { lbImg.src = ''; }, 250);
+            }
+
+            document.querySelectorAll('.img-lightbox, .diagram-wrap img').forEach(function (img) {
+                img.addEventListener('click', function () {
+                    openLightbox(img.src, img.alt, img.dataset.caption || img.alt || '');
+                });
+            });
+
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay || e.target === lbImg) closeLightbox();
+            });
+            lbClose.addEventListener('click', closeLightbox);
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) closeLightbox();
+            });
+        })();
     </script>
 </body>
 
