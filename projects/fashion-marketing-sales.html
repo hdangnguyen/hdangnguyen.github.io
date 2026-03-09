@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description"
+        content="Fashion Marketing & Sales Analysis — A Power BI dashboard connecting marketing spend to sales performance across campaigns and SKUs." />
+    <meta name="author" content="Hai-Dang Nguyen" />
+    <title>Fashion Marketing & Sales Analysis - Hai-Dang Nguyen Portfolio</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <style>
+        :root {
+            --brand-blue: #1e30f3;
+            --brand-pink: #e21e80;
+            --bs-body-font-size: 0.95rem;
+        }
+
+        body {
+            font-size: var(--bs-body-font-size);
+            line-height: 1.7;
+            color: #343a40;
+        }
+
+        .case-study-hero {
+            background: linear-gradient(135deg, #1e30f3 0%, #e21e80 100%);
+            color: white;
+            padding: 3.5rem 0 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .case-study-hero h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        .case-study-section {
+            margin-bottom: 3.5rem;
+        }
+
+        h2.section-heading {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .metric-card {
+            border-left: 4px solid var(--brand-blue);
+            background-color: #f8f9fa;
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        .tech-badge {
+            font-size: 0.82rem;
+            padding: 0.35em 0.8em;
+            margin-right: 0.4rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            background-color: #fff;
+            color: #212529;
+        }
+
+        /* Sidebar */
+        .sidebar-sticky {
+            position: sticky;
+            top: 5.5rem;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.35rem 0;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+            transition: all 0.15s;
+        }
+
+        .toc-link:hover {
+            color: var(--brand-blue);
+            border-left-color: var(--brand-blue);
+            padding-left: 1rem;
+        }
+
+        /* Diagram images */
+        .diagram-wrap {
+            border: 1px solid #e9ecef;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .diagram-wrap img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+        }
+
+        .diagram-caption {
+            font-size: 0.82rem;
+            color: #6c757d;
+            margin-top: 0.6rem;
+            font-style: italic;
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: lbFadeIn 0.2s ease;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-overlay img {
+            max-width: 92vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 0.75rem;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+            animation: lbZoomIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: zoom-out;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.15s, transform 0.15s;
+            z-index: 10000;
+            background: none;
+            border: none;
+        }
+
+        .lightbox-close:hover {
+            color: #fff;
+            transform: scale(1.15);
+        }
+
+        .lightbox-caption {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.82rem;
+            font-style: italic;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        @keyframes lbFadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes lbZoomIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        /* Clickable images */
+        .img-lightbox,
+        .diagram-wrap img {
+            cursor: zoom-in;
+            transition: opacity 0.15s;
+        }
+
+        .img-lightbox:hover,
+        .diagram-wrap img:hover {
+            opacity: 0.88;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm sticky-top">
+            <div class="container px-5">
+                <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">Hai-Dang
+                        Nguyen</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item"><a class="nav-link" href="../resume.html">About Me</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
+                        <li class="nav-item" style="display:none"><a class="nav-link" href="../book.html">Book Read</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Case Study Hero Header-->
+        <header class="case-study-hero">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="col-lg-10 col-xl-9 text-center">
+                        <div class="mb-3">
+                            <span class="badge bg-primary bg-gradient rounded-pill">Power BI</span>
+                        </div>
+                        <h1 class="mb-3">Fashion Marketing & Sales Analysis</h1>
+                        <p class="lead fw-normal text-white-50 mb-3 mx-auto"
+                            style="max-width: 750px; font-size: 1rem; line-height: 1.6;">A tactical Power BI report for
+                            a fashion retail & e-commerce business — connecting marketing spend across multi-channel
+                            campaigns to actual sales revenue, and optimizing budget performance based on key marketing
+                            KPIs such as CPM, CPC, CTR, and ROAS.</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-2" style="opacity:0.8">
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Marketing
+                                Analytics</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Campaign
+                                Performance</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">DAX</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">ROAS Optimization</span>
+                            <span class="badge bg-white bg-opacity-10 rounded-pill fw-normal"
+                                style="border:1px solid rgba(255,255,255,0.3);font-size:0.8rem">Design Thinking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container px-5">
+            <div class="row gx-5">
+                <!-- Left Column: Main Narrative -->
+                <div class="col-lg-8">
+
+                    <!-- Cover Photo -->
+                    <div class="mb-5 text-center mt-3">
+                        <img src="../assets/pbi-fashion/cover-image.jpg" class="img-fluid rounded-4 shadow"
+                            alt="Fashion Marketing & Sales Analysis Dashboard Cover">
+                    </div>
+
+                    <!-- Business Problem -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="business-challenge">01. Business Challenge</h2>
+                        <p>A fashion retail & e-commerce company runs multi-channel marketing campaigns (online and
+                            offline) to boost sales and build brand presence. However, senior leadership lacked a
+                            unified, data-driven view of how marketing budget was being spent and whether each
+                            campaign was actually driving revenue.</p>
+                        <p>The core business objective was to build a <strong>tactical report</strong> that answers
+                            three strategic questions:</p>
+                        <ul>
+                            <li><strong>Budget Overview:</strong> Where is the marketing budget going, and how is it
+                                distributed across campaigns, channels, and product SKUs?</li>
+                            <li><strong>Campaign Performance:</strong> Which campaigns are delivering results in terms
+                                of CPM, CPC, CTR, and ROAS — and which ones are underperforming?</li>
+                            <li><strong>Revenue Attribution:</strong> How does marketing spend directly link to sales
+                                revenue? Which SKUs and campaigns generate the best return on investment?</li>
+                        </ul>
+                    </div>
+
+                    <!-- My Approach -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="my-approach">02. My Approach</h2>
+                        <p>To build a practical and effective dashboard, I applied principles from Stanford's Design
+                            Thinking process, walking through the problem from the perspective of a marketing manager:
+                        </p>
+
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">1</span>
+                            <div>
+                                <strong>Empathize & Define:</strong> I put myself in the shoes of the "Marketing
+                                Manager" to clarify the ultimate goals — understanding budget allocation and measuring
+                                campaign ROI at both the campaign-level and SKU-level.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">2</span>
+                            <div>
+                                <strong>Prototype & Test:</strong> I designed low-fidelity wireframes first, then built
+                                iterative Power BI prototypes — checking at each stage whether the layout answered the
+                                right business questions intuitively.
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <span class="badge bg-primary rounded-pill me-3 px-2 py-1">3</span>
+                            <div>
+                                <strong>Finalize & Find Insights:</strong> Once the report design was finalized, I used
+                                it to explore the data, identify inefficient campaigns and high-ROAS SKUs, and develop
+                                actionable tactical recommendations.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Design Thinking -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="design-thinking">03. Design Thinking</h2>
+
+                        <!-- Step 1 -->
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">Step 1. Empathize</h4>
+                            <p class="text-muted mb-3">Identify the stakeholder's goals and understand the underlying
+                                business problems from the marketing manager's perspective.</p>
+                            <img src="../assets/pbi-fashion/stage_1.1.svg"
+                                class="img-fluid rounded-3 shadow-sm mb-3 img-lightbox" alt="Empathize Stage 1">
+                            <img src="../assets/pbi-fashion/stage_1.2.svg"
+                                class="img-fluid rounded-3 shadow-sm img-lightbox" alt="Empathize Stage 2">
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">Step 2. Define</h4>
+                            <p class="text-muted mb-3">Clearly define the core KPIs and metrics the report must surface:
+                                Budget spend breakdown, CPM, CPC, CTR, ROAS, and Revenue attribution by campaign &amp;
+                                SKU.</p>
+                            <img src="../assets/pbi-fashion/stage_2.1.svg"
+                                class="img-fluid rounded-3 shadow-sm mb-3 img-lightbox" alt="Define Stage 1">
+                            <img src="../assets/pbi-fashion/stage_2.2.svg"
+                                class="img-fluid rounded-3 shadow-sm img-lightbox" alt="Define Stage 2">
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">Step 3. Ideate</h4>
+                            <p class="text-muted mb-3">Brainstorm data visualization layouts — deciding which charts
+                                best communicate budget distribution, campaign comparisons, and SKU-level ROAS.</p>
+                            <img src="../assets/pbi-fashion/stage_3.svg"
+                                class="img-fluid rounded-3 shadow-sm img-lightbox" alt="Ideate Stage">
+                        </div>
+
+                        <!-- Step 4 & 5 -->
+                        <div class="mb-4">
+                            <h4 class="fw-bold mb-2">Step 4. Prototype & Step 5. Test</h4>
+                            <p class="text-muted mb-0">Continuously prototype and test the report layout against real
+                                stakeholder questions until the design was intuitive and self-explanatory.</p>
+                        </div>
+                    </div>
+
+                    <!-- Data Preparation & Modeling -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="data-preparation">04. Data Preparation &amp; Modeling</h2>
+
+                        <div class="mb-5">
+                            <h4 class="fw-bold mb-2">1. Data Transform with Power Query</h4>
+                            <p class="text-muted mb-3">The dataset consisted of three core tables — <code>Order</code>
+                                (total revenue), <code>mkt_camp_by_sku_cost</code> (ad revenue by SKU per campaign),
+                                and <code>mkt_camp_cost</code> (campaign-level marketing spend with CPM, CPC, CTR
+                                metrics). Key transformations included:</p>
+                            <ul class="text-muted mb-0">
+                                <li class="mb-2">Standardizing data types and cleaning column names across all three
+                                    tables for consistent joins.</li>
+                                <li class="mb-2">Creating a unified Product dimension table from the SKU-level catalog
+                                    for proper category grouping.</li>
+                                <li>Generating calculated columns to support ROAS, ROI, and effective cost-per-result
+                                    metrics across each campaign-SKU combination.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-4">
+                            <h4 class="fw-bold mb-2">2. Building the Data Model</h4>
+                            <p class="text-muted mb-3">I implemented a <strong>Star Schema</strong> with
+                                <code>Order</code> as the central Fact table, linked to campaign spend and SKU
+                                dimension tables via one-to-many relationships. This allowed seamless cross-filtering
+                                between revenue, marketing costs, and product categories in a single report view.
+                            </p>
+                            <img src="../assets/pbi-fashion/Data Model.png"
+                                class="img-fluid rounded-3 shadow-sm border img-lightbox" alt="Power BI Data Model">
+                        </div>
+
+                        <div class="alert alert-secondary border-0 mt-4 shadow-sm" role="alert">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-github fs-4 me-3 text-dark"></i>
+                                <span class="text-dark">For more details about the dataset, Power Query M-Code, and Data
+                                    Model, please check the <a
+                                        href="https://github.com/hdangnguyen/Fashion_Marketing_and_Sales_Analysis"
+                                        target="_blank" class="text-decoration-none fw-bold text-primary">source code on
+                                        GitHub</a>.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visualizations -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="visualizations">05. Visualizations</h2>
+
+                        <!-- Dashboard Usage Instructions -->
+                        <div class="card border-0 bg-light rounded-3 mb-5">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3"><i class="bi bi-info-circle-fill text-primary me-2"></i>How to
+                                    Use This Dashboard</h5>
+                                <ul class="mb-0 text-muted">
+                                    <li class="mb-2"><strong>Optimal Viewing:</strong> Click the <strong>Fit to
+                                            page</strong> <i class="bi bi-aspect-ratio px-1"></i> icon or the
+                                        <strong>Full screen</strong> <i class="bi bi-arrows-fullscreen px-1"></i> arrows
+                                        at the bottom right corner of the dashboard for the best experience.
+                                    </li>
+                                    <li class="mb-2"><strong>Exploration:</strong> Navigate between the report pages
+                                        (<strong>Budget Overview</strong>, <strong>Campaign Performance</strong>,
+                                        <strong>Revenue Attribution</strong>) using the top buttons or bottom
+                                        pagination.
+                                    </li>
+                                    <li class="mb-2"><strong>Interaction:</strong> Use the side dropdowns to filter by
+                                        campaign, channel, or product category. Click on any chart element to
+                                        cross-filter the entire page, and hover over data points to reveal detailed
+                                        tooltips.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Power BI Embed -->
+                        <figure class="mb-5">
+                            <div class="ratio border rounded-4 shadow-sm overflow-hidden"
+                                style="--bs-aspect-ratio: 81%;">
+                                <iframe title="Marketing Analyst"
+                                    src="https://app.powerbi.com/view?r=eyJrIjoiMDAzMzk5ODUtNTA5ZC00MWU5LWFmYWYtMjk2MTE4NGU5NDVhIiwidCI6Ijk3MWY1NzEwLTExOTAtNDdlYS04MTg4LTVmN2IwNWI5MzlkMiIsImMiOjEwfQ%3D%3D&language=en-US"
+                                    frameborder="0" allowFullScreen="true">
+                                </iframe>
+                            </div>
+                            <figcaption class="figure-caption text-center mt-3">Interactive Fashion Marketing &amp;
+                                Sales
+                                Dashboard — Feel free to explore filters!</figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Key Insights & Recommendations -->
+                    <div class="case-study-section">
+                        <h2 class="section-heading" id="recommendations">06. Key Insights &amp; Recommendations</h2>
+
+                        <h3 class="fw-bold mb-4 fs-4">Key Insights</h3>
+
+                        <!-- Insight 1 -->
+                        <div class="row mb-5 align-items-center">
+                            <div class="col-md-6 order-md-1 order-2">
+                                <h4 class="fw-bold fs-5 text-dark mb-2">1. Spending Less is Actually a Signal, Not a
+                                    Problem</h4>
+                                <p class="text-muted">The campaign consumed <strong>82% of the total budget</strong>
+                                    (396.7M / 483.3M), generating <strong>~64% of total revenue</strong> through the
+                                    ads channel. On the surface, the 18% unspent budget may look like underperformance
+                                    — but the scatter plot of <strong>Ads Spend vs. ROAS</strong> reveals a clear
+                                    negative correlation: <em>the more we spend, the lower the ROAS becomes</em>. This
+                                    means the algorithm has already found the efficiency ceiling. Forcing the remaining
+                                    budget into the same campaigns would yield <strong>diminishing returns</strong>,
+                                    not more revenue.</p>
+                            </div>
+                            <div class="col-md-6 order-md-2 order-1 mb-3 mb-md-0">
+                                <img src="../assets/pbi-fashion/insight_1.1.png"
+                                    class="img-fluid rounded-3 shadow-sm border mb-3 img-lightbox"
+                                    alt="ROAS vs Spend Scatter Plot">
+                                <img src="../assets/pbi-fashion/insight_1.2.png"
+                                    class="img-fluid rounded-3 shadow-sm border img-lightbox" alt="Ads Spent by Day">
+                            </div>
+                        </div>
+
+                        <!-- Insight 2 -->
+                        <div class="row mb-5 align-items-center">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <img src="../assets/pbi-fashion/insight_2.1.png"
+                                    class="img-fluid rounded-3 shadow-sm border mb-3 img-lightbox"
+                                    alt="Revenue Source Waterfall">
+                                <img src="../assets/pbi-fashion/insight_2.2.png"
+                                    class="img-fluid rounded-3 shadow-sm border img-lightbox"
+                                    alt="Organic vs Ads Profit">
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="fw-bold fs-5 text-dark mb-2">2. Organic is Carrying the Entire Business</h4>
+                                <p class="text-muted">Despite representing only <strong>36% of total revenue</strong>,
+                                    the organic channel is the <strong>sole source of profit</strong> for the company.
+                                    Meanwhile, the ads channel — which drives 64% of revenue — is operating at a
+                                    <strong>net loss</strong> after accounting for COGS and marketing spend. This
+                                    inversion reveals a critical structural risk: if organic traffic declines for any
+                                    reason (algorithm change, seasonality), there is no profitable fallback. The
+                                    business is scaling revenue by subsidizing sales — not by building a sustainable
+                                    margin engine.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Insight 3 -->
+                        <div class="row mb-5 align-items-center">
+                            <div class="col-md-6 order-md-1 order-2">
+                                <h4 class="fw-bold fs-5 text-dark mb-2">3. Budget is Flowing in the Opposite Direction
+                                    of Profit</h4>
+                                <p class="text-muted">Two compounding problems emerge at the product level. First, the
+                                    <strong>Audrey Shirt series</strong> (1, 2 &amp; 3) absorbed nearly
+                                    <strong>74M VND</strong> in ads spend — the highest of any SKU group — yet they
+                                    are consistently the <strong>largest loss-makers</strong> on the dashboard. Budget
+                                    is flowing directly into unprofitable products. Second, <strong>Áo Tách Set</strong>
+                                    — the category with the highest unit volume — has a COGS that exceeds its selling
+                                    price, meaning <em>every sale made is a sale at a loss</em>. Scaling ads spend on
+                                    this category only amplifies the losses. Meanwhile, <strong>Váy Chiết Eo
+                                        Ôm</strong> (ROAS 22.06, 3× the portfolio average) remains underweighted in
+                                    the budget allocation.
+                                </p>
+                            </div>
+                            <div class="col-md-6 order-md-2 order-1 mb-3 mb-md-0">
+                                <img src="../assets/pbi-fashion/insight_3.1.png"
+                                    class="img-fluid rounded-3 shadow-sm border mb-3 img-lightbox"
+                                    alt="Top SKUs by Ads Spend">
+                                <img src="../assets/pbi-fashion/insight_3.2.png"
+                                    class="img-fluid rounded-3 shadow-sm border img-lightbox"
+                                    alt="Product Profit vs Spend">
+                            </div>
+                        </div>
+
+                        <!-- Recommendations List -->
+                        <h3 class="fw-bold mb-4 mt-5 fs-4">Strategic Recommendations</h3>
+                        <div class="alert alert-light border-start border-primary border-4 shadow-sm" role="alert">
+                            <ul class="mb-0 text-dark" style="line-height: 1.8;">
+                                <li class="mb-3"><strong>Respect the ROAS ceiling — don't force-spend:</strong> The
+                                    negative ROAS-vs-Spend trend shows the current campaign set has hit its efficiency
+                                    limit. Instead of pushing the remaining 18% budget into the same campaigns,
+                                    reallocate
+                                    it toward <strong>high-ROAS periods</strong> (e.g., around campaign event days) or
+                                    invest in creative refreshes to reset the algorithm's delivery curve.</li>
+                                <li class="mb-3"><strong>Shift budget from Audrey Shirt → Váy Chiết Eo Ôm:</strong>
+                                    Redirect the ~74M currently concentrated on the Audrey Shirt series to
+                                    <strong>Váy Chiết Eo Ôm</strong> — the category with ROAS 22.06 (nearly 3× the
+                                    portfolio average). Even a partial reallocation could significantly improve overall
+                                    campaign profitability without increasing total spend.
+                                </li>
+                                <li><strong>Fix Áo Tách Set's unit economics before scaling:</strong> Halt ads
+                                    investment in this category until either the <strong>selling price is
+                                        raised</strong>
+                                    or the <strong>COGS is renegotiated</strong> to restore positive margin. Running
+                                    ads on a product with inverted unit economics means every incremental order
+                                    deepens the loss. A pricing audit or supplier renegotiation should precede any
+                                    future campaign activation for this category.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Right Column: Sidebar -->
+                <div class="col-lg-4">
+                    <div class="sidebar-sticky">
+
+                        <!-- GitHub card (top, highlighted) -->
+                        <div class="card border-0 rounded-3 mb-4"
+                            style="background:linear-gradient(135deg,rgba(30,48,243,0.05) 0%,rgba(226,30,128,0.05) 100%);border:1px solid rgba(30,48,243,0.12) !important">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-1 fs-6 text-uppercase" style="color:var(--brand-blue)">Source Code
+                                    &amp; Data</h5>
+                                <p class="text-muted mb-3" style="font-size:0.78rem;line-height:1.5">For the dataset,
+                                    <code>.pbix</code> files, and full Data Model, visit the GitHub repository below.
+                                </p>
+                                <div class="d-grid">
+                                    <a href="https://github.com/hdangnguyen/Fashion_Marketing_and_Sales_Analysis"
+                                        target="_blank" class="btn btn-sm fw-bold"
+                                        style="background:linear-gradient(135deg,var(--brand-blue),var(--brand-pink));color:white;border:none">
+                                        <i class="bi bi-github me-2"></i>View on GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table of Contents -->
+                        <div class="card border-0 bg-white rounded-3 shadow-sm mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3 fs-6 text-uppercase text-muted">Table of Contents</h5>
+                                <nav>
+                                    <a class="toc-link" href="#business-challenge">01. Business Challenge</a>
+                                    <a class="toc-link" href="#my-approach">02. My Approach</a>
+                                    <a class="toc-link" href="#design-thinking">03. Design Thinking</a>
+                                    <a class="toc-link" href="#data-preparation">04. Data Preparation &amp; Modeling</a>
+                                    <a class="toc-link" href="#visualizations">05. Visualizations</a>
+                                    <a class="toc-link" href="#recommendations">06. Key Insights &amp;
+                                        Recommendations</a>
+                                </nav>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto border-top">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-auto">
+                    <div class="small m-0 text-muted">Copyright &copy; Hai-Dang Nguyen 2026</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+        <img src="" alt="" id="lightbox-img" />
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+
+    <script>
+        (function () {
+            const overlay = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightbox-img');
+            const lbCaption = document.getElementById('lightbox-caption');
+            const lbClose = document.getElementById('lightbox-close');
+
+            function openLightbox(src, alt, caption) {
+                lbImg.src = src;
+                lbImg.alt = alt;
+                lbCaption.textContent = caption || '';
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                setTimeout(() => { lbImg.src = ''; }, 250);
+            }
+
+            document.querySelectorAll('.img-lightbox, .diagram-wrap img').forEach(function (img) {
+                img.addEventListener('click', function () {
+                    openLightbox(img.src, img.alt, img.dataset.caption || img.alt || '');
+                });
+            });
+
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay || e.target === lbImg) closeLightbox();
+            });
+            lbClose.addEventListener('click', closeLightbox);
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        })();
+    </script>
+</body>
+
+</html>
